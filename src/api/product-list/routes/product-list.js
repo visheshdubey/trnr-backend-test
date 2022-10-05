@@ -2,12 +2,13 @@ module.exports = {
   routes: [
     {
       method: 'GET',
-      path: '/category-list',
-      handler: 'category-list.categoryList',
+      path: '/product-list/:categoryId',
+      handler: 'product-list.productList',
       config: {
         policies: [],
         middlewares: [],
       },
     },
+
   ],
 };

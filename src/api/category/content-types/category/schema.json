@@ -29,7 +29,13 @@
       ]
     },
     "description": {
-      "type": "richtext"
+      "type": "text"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product.product",
+      "inversedBy": "category"
     }
   }
 }

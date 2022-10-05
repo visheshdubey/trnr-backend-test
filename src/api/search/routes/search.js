@@ -2,8 +2,8 @@ module.exports = {
   routes: [
     {
       method: 'GET',
-      path: '/category-list',
-      handler: 'category-list.categoryList',
+      path: '/search/:query',
+      handler: 'search.Search',
       config: {
         policies: [],
         middlewares: [],

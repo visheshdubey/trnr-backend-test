@@ -16,9 +16,6 @@
       "type": "string",
       "required": true
     },
-    "description": {
-      "type": "richtext"
-    },
     "image": {
       "type": "media",
       "multiple": false,
@@ -30,13 +27,17 @@
     "category": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::category.category"
-    },
-    "exercise": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::exercise.exercise",
+      "target": "api::category.category",
       "inversedBy": "product"
+    },
+    "exercises": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::exercise.exercise",
+      "mappedBy": "product"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }
