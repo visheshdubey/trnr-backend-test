@@ -27,17 +27,6 @@
         "audios"
       ]
     },
-    "category": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::category.category"
-    },
-    "product": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product",
-      "mappedBy": "exercise"
-    },
     "image_large": {
       "type": "media",
       "multiple": true,
@@ -71,14 +60,26 @@
         "audios"
       ]
     },
-    "description": {
-      "type": "richtext"
-    },
-    "saved_workout": {
+    "saved_workouts": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToMany",
       "target": "api::saved-workout.saved-workout",
-      "mappedBy": "exercise"
+      "mappedBy": "exercises"
+    },
+    "product": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product.product",
+      "inversedBy": "exercises"
+    },
+    "exercise_category": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::exercise-category.exercise-category",
+      "inversedBy": "exercises"
+    },
+    "description": {
+      "type": "text"
     }
   }
 }

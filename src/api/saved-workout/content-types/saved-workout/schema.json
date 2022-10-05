@@ -12,16 +12,16 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user"
     },
-    "exercise": {
+    "exercises": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToMany",
       "target": "api::exercise.exercise",
-      "inversedBy": "saved_workout"
+      "inversedBy": "saved_workouts"
     }
   }
 }
