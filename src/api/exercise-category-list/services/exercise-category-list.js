@@ -63,6 +63,39 @@ module.exports = {
             return err;
         }
     },
+    exerciseDetail: async (exerciseId) => {
+
+        /* Gets Single Exercise in Detail*/
+        try {
+            // fetching data
+            const entries = await strapi.entityService.findOne(
+                "api::exercise.exercise", exerciseId,
+                {
+                    fields: ["id", "name", "description", "updatedAt"],
+                    populate: {
+                        exercise_category: {
+                            fields: ["id", "name", "updatedAt"],
+                        },
+                        video: {
+                            fields: ["url"],
+                        },
+                        image_large: {
+                            fields: ["url"],
+                        },
+                        image_small: {
+                            fields: ["url"],
+                        }
+
+                    },
+
+                }
+            );
+
+            return entries;
+        } catch (err) {
+            return err;
+        }
+    },
     exerciseCategory: async (productId, categoryId) => {
 
         /* Displays a List of Exercises in the given category*/
