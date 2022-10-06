@@ -14,8 +14,9 @@
   "attributes": {
     "user": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user"
+      "relation": "manyToOne",
+      "target": "api::custom-user.custom-user",
+      "inversedBy": "saved_workouts"
     },
     "exercises": {
       "type": "relation",
