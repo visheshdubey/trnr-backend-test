@@ -12,7 +12,7 @@ module.exports = {
     {
       method: 'POST',
       path: '/workouts/:userId',
-      handler: 'workouts.addWorkouts',
+      handler: 'workouts.updateWorkouts',
       config: {
         policies: [],
         middlewares: [],
