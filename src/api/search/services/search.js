@@ -10,10 +10,12 @@ module.exports = {
 
                         product: {
                             name: true,
-                            category: {
-                                name: true
-                            },
-                        }
+                            populate: {
+                                category: true
+                            }
+                        },
+                        thumbnail: true
+
                     },
                     filters: {
                         $or: [
@@ -45,9 +47,7 @@ module.exports = {
                         id: item.id,
                         productName: item.product?.name || "",
                         exercise: item.name || "",
-                        // publishedDate: new Date(item.createdAt).toDateString() || "",
-                        // image: item.thumbnail?.url || "",
-                        category: item.product.category?.name || "",
+                        image: item.thumbnail?.url || "",
                     });
                     return acc;
                 }, []);

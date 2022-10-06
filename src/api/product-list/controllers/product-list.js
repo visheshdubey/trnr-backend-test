@@ -4,8 +4,6 @@ module.exports = {
       const data = await strapi
         .service("api::product-list.product-list")
         .productList(ctx.params.categoryId);
-      // console.log(data, "data");
-      console.log(ctx.params.categoryId)
       ctx.body = data;
     } catch (err) {
       ctx.badRequest("productList report controller error", { moreDetails: err });

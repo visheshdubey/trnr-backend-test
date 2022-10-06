@@ -4,7 +4,8 @@
   "info": {
     "singularName": "exercise-category",
     "pluralName": "exercise-categories",
-    "displayName": "exercise_category"
+    "displayName": "exercise_category",
+    "description": ""
   },
   "options": {
     "draftAndPublish": true

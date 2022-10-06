@@ -26,9 +26,9 @@
     },
     "category": {
       "type": "relation",
-      "relation": "oneToOne",
+      "relation": "manyToOne",
       "target": "api::category.category",
-      "inversedBy": "product"
+      "inversedBy": "products"
     },
     "exercises": {
       "type": "relation",

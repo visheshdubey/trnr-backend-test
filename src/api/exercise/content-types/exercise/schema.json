@@ -60,12 +60,6 @@
         "audios"
       ]
     },
-    "saved_workouts": {
-      "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::saved-workout.saved-workout",
-      "mappedBy": "exercises"
-    },
     "product": {
       "type": "relation",
       "relation": "manyToOne",

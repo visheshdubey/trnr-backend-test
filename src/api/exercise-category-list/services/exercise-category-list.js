@@ -1,11 +1,14 @@
 module.exports = {
     exerciseCategoryList: async (productId) => {
+
+        /* Generates list of exercise categories which has exercise in it. 
+        Those exercise categories which are not alloted any exercise are opted out from the result*/
         try {
             // fetching data
             const entries = await strapi.entityService.findMany(
                 "api::exercise.exercise",
                 {
-                    fields: ["id", "name", "createdAt"],
+                    fields: ["id", "name", "updatedAt"],
                     populate: {
                         exercise_category: {
                             id: true,
@@ -46,17 +49,12 @@ module.exports = {
 
                     acc.push({
                         id: item.id,
-                        // name: item.name || "",
                         exerciseCategory: item.name || "",
-                        // publishedDate: new Date(item.createdAt).toDateString() || "",
-                        // image: item.thumbnail?.url || "",
-                        // category: item.exercise_category?.name || "",
+                        updatedDate: item.updatedAt || "",
                     });
 
                     return acc;
                 }, []);
-                // var c = new Set(acc);
-                // console.log(c);
             }
 
             // return the reduced data
@@ -66,6 +64,8 @@ module.exports = {
         }
     },
     exerciseCategory: async (productId, categoryId) => {
+
+        /* Displays a List of Exercises in the given category*/
         try {
             // fetching data
             console.log(productId + "llll" + categoryId);
@@ -121,8 +121,6 @@ module.exports = {
                     acc.push({
                         id: item.id,
                         name: item.name || "",
-                        // exerciseCategory: item.name || "",
-                        // publishedDate: new Date(item.createdAt).toDateString() || "",
                         image: item.thumbnail?.url || "",
                         category: item.product.category?.name || "",
                     });
