@@ -60,35 +60,39 @@ module.exports = {
             return err;
         }
     },
-    addWorkouts: async (userId, body) => {
+    // addWorkouts: async (userId, body) => {
 
-        try {
-            const entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
+    //     try {
+    //         const entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
 
-                data: {
-                    user: userId,
-                    exercises: body.data.exercises,
-                    publishedAt: new Date()
-                }
-            });
-            let exercisesReduced = {
-                messaage: entry
-            };
-            return exercisesReduced;
+    //             data: {
+    //                 user: userId,
+    //                 exercises: body.data.exercises,
+    //                 publishedAt: new Date()
+    //             }
+    //         });
+    //         let exercisesReduced = {
+    //             messaage: entry
+    //         };
+    //         return exercisesReduced;
 
-        } catch (err) {
-            return err;
-        }
-    },
+    //     } catch (err) {
+    //         return err;
+    //     }
+    // },
     updateWorkouts: async (userId, body) => {
 
         try {
-            const doesExist = await strapi.db.query('api::saved-workout.saved-workout').findOne({
-                select: ['user'],
-                where: { user: userId }
+            console.log('hey')
+            const [user_ob, count] = await strapi.db.query('api::saved-workout.saved-workout').findWithCount({
+                // select: ['user', 'exercises'],
+                where: { user: 1 },
+                populate: { user: true },
             });
+            console.log(count)
             let entry;
-            if (doesExist) {
+
+            if (count != 0) {
                 entry = await strapi.db.query('api::saved-workout.saved-workout').update({
                     where: { user: userId },
                     data: {
