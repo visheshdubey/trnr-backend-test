@@ -19,4 +19,14 @@ module.exports = {
       ctx.badRequest("exerciseCategoryList report controller error", { moreDetails: err });
     }
   },
+  async exerciseDetail(ctx, next) {
+    try {
+      const data = await strapi
+        .service("api::exercise-category-list.exercise-category-list")
+        .exerciseDetail(ctx.params.id);
+      ctx.body = data;
+    } catch (err) {
+      ctx.badRequest("exerciseCategoryList report controller error", { moreDetails: err });
+    }
+  },
 };

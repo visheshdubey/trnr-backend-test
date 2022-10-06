@@ -18,5 +18,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'GET',
+      path: '/exercise-detail/:id',
+      handler: 'exercise-category-list.exerciseDetail',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };
