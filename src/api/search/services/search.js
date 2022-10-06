@@ -21,13 +21,13 @@ module.exports = {
                         $or: [
                             {
                                 name: {
-                                    $startsWith: query
+                                    $containsi: query
                                 }
                             },
                             {
                                 product: {
                                     name: {
-                                        $startsWith: query
+                                        $containsi: query
                                     }
                                 }
                             }
