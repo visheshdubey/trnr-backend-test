@@ -80,23 +80,47 @@ module.exports = {
     //         return err;
     //     }
     // },
-    updateWorkouts: async (userId, body) => {
+    updateWorkouts: async (userId, body, method) => {
 
         try {
-            console.log('hey')
+            console.log(method)
             const [user_ob, count] = await strapi.db.query('api::saved-workout.saved-workout').findWithCount({
                 // select: ['user', 'exercises'],
-                where: { user: 1 },
-                populate: { user: true },
+                where: { user: userId },
+                populate: { user: true, exercises: { populate: { id: true } } },
             });
-            console.log(count)
+            const user = await user_ob
+
+
+            // console.log(result);
+
+
             let entry;
 
             if (count != 0) {
+                let result;
+                if (user[0].exercises && Array.isArray(user[0].exercises)) {
+                    result = await user[0].exercises.reduce(async (acc, item) => {
+                        acc = acc || [];
+                        const accum = await acc;
+                        accum.push(item.id);
+                        return accum;
+                    }, []);
+                }
+                if (method === 'DELETE') {
+                    const index = result.indexOf(body.data.exercises);
+                    console.log(body.data.exercises);
+                    if (index > -1) { // only splice array when item is found
+                        result.splice(index, 1);
+                    }
+                }
+                else
+                    result = result.concat([body.data.exercises])
+
                 entry = await strapi.db.query('api::saved-workout.saved-workout').update({
                     where: { user: userId },
                     data: {
-                        exercises: body.data.exercises,
+                        exercises: result,
                     },
                 });
             }
@@ -111,7 +135,7 @@ module.exports = {
                 });
             }
             let exercisesReduced = {
-                messaage: entry
+                messaage: user
             };
 
             return exercisesReduced;

@@ -27,5 +27,14 @@ module.exports = {
         middlewares: [],
       },
     },
+    {
+      method: 'DELETE',
+      path: '/workouts/:userId',
+      handler: 'workouts.updateWorkouts',
+      config: {
+        policies: [],
+        middlewares: [],
+      },
+    },
   ],
 };

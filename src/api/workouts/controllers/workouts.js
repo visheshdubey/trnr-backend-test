@@ -23,7 +23,7 @@ module.exports = {
     try {
       const data = await strapi
         .service("api::workouts.workouts")
-        .updateWorkouts(ctx.params.userId, ctx.request.body);
+        .updateWorkouts(ctx.params.userId, ctx.request.body, ctx.request.querystring);
       ctx.body = data;
     } catch (err) {
       ctx.badRequest("Workouts controller error", { moreDetails: err });
