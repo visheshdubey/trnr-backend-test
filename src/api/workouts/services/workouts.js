@@ -83,13 +83,29 @@ module.exports = {
     updateWorkouts: async (userId, body) => {
 
         try {
-
-            const entry = await strapi.db.query('api::saved-workout.saved-workout').update({
-                where: { user: userId },
-                data: {
-                    exercises: body.data.exercises,
-                },
+            const doesExist = await strapi.db.query('api::saved-workout.saved-workout').findOne({
+                select: ['user'],
+                where: { user: userId }
             });
+            let entry;
+            if (doesExist) {
+                entry = await strapi.db.query('api::saved-workout.saved-workout').update({
+                    where: { user: userId },
+                    data: {
+                        exercises: body.data.exercises,
+                    },
+                });
+            }
+            else {
+                entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
+
+                    data: {
+                        user: userId,
+                        exercises: body.data.exercises,
+                        publishedAt: new Date()
+                    }
+                });
+            }
             let exercisesReduced = {
                 messaage: entry
             };
