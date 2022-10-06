@@ -1,7 +1,7 @@
 module.exports = {
     productList: async (categoryId) => {
         try {
-            // fetching data
+            /* Displays a List of Product Items in the given category*/
             const entries = await strapi.entityService.findMany(
                 "api::product.product",
                 {
@@ -32,12 +32,9 @@ module.exports = {
                     acc.push({
                         id: item.id,
                         name: item.name || "",
-                        // product: item.product.name || "",
-                        // publishedDate: new Date(item.createdAt).toDateString() || "",
                         category: item.category?.id || "",
                         category_name: item.category?.name || "",
                         image: item.image?.url || ""
-                        // authorEmail: item.author?.email || "",
                     });
                     return acc;
                 }, []);

@@ -1,18 +1,17 @@
 module.exports = {
+    /* Displays a List of Product Categories*/
+
     categoryList: async () => {
         try {
             // fetching data
             const entries = await strapi.entityService.findMany(
                 "api::category.category",
                 {
-                    fields: ["id", "name", "createdAt"],
+                    fields: ["id", "name", "updatedAt"],
                     populate: {
                         image: {
                             fields: ["url"],
                         },
-                        // category: {
-                        //     fields: ["name"],
-                        // },
                     },
                 }
             );
@@ -25,10 +24,8 @@ module.exports = {
                     acc.push({
                         id: item.id,
                         name: item.name || "",
-                        // category: item.category.name || "",
-                        publishedDate: new Date(item.createdAt).toDateString() || "",
                         image: item.image?.url || "",
-                        // authorEmail: item.author?.email || "",
+                        updatedAt: new Date(item.updatedAt) || "",
                     });
                     return acc;
                 }, []);

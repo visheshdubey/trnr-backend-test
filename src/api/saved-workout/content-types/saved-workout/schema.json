@@ -14,15 +14,14 @@
   "attributes": {
     "user": {
       "type": "relation",
-      "relation": "manyToOne",
+      "relation": "oneToOne",
       "target": "api::custom-user.custom-user",
-      "inversedBy": "saved_workouts"
+      "inversedBy": "saved_workout"
     },
     "exercises": {
       "type": "relation",
-      "relation": "manyToMany",
-      "target": "api::exercise.exercise",
-      "inversedBy": "saved_workouts"
+      "relation": "oneToMany",
+      "target": "api::exercise.exercise"
     }
   }
 }
