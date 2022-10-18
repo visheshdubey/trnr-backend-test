@@ -12,22 +12,26 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "first_name": {
+    "firstName": {
       "type": "string"
     },
-    "last_name": {
+    "lastName": {
       "type": "string"
-    },
-    "user_uid": {
-      "type": "uid",
-      "targetField": "first_name",
-      "required": true
     },
     "saved_workout": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::saved-workout.saved-workout",
       "mappedBy": "user"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "email": {
+      "type": "email"
+    },
+    "DOB": {
+      "type": "date"
     }
   }
 }
