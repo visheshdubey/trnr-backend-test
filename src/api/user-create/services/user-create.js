@@ -1,6 +1,6 @@
 module.exports = {
     getUser: async (userId) => {
-
+        // yo
         try {
             const entries = await strapi.entityService.findMany(
                 "api::custom-user.custom-user",
