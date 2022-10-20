@@ -95,7 +95,7 @@ module.exports = {
                 if (method === 'DELETE') {
                     const index = result.indexOf(body.data.exercises);
                     console.log(body.data.exercises);
-                    if (index > -1) { // only splice array when item is found
+                    if (index > -1) { // only splice array when item is foun
                         result.splice(index, 1);
                     }
                 }
