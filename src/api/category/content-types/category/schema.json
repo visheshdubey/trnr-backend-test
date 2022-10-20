@@ -14,8 +14,7 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
-      "regex": "^[A-Z 0-9]+$"
+      "required": true
     },
     "image": {
       "type": "media",
