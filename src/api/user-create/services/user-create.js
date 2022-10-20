@@ -61,7 +61,7 @@ module.exports = {
                         DOB: body.data.DOB || '',
                         country: body.data.country || '',
                         gender: body.data.gender || '',
-                        tnc: body.data.tnc || '',
+                        tnc: body.data.tnc || true,
                         publishedAt: new Date()
                     }
                 });

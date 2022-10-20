@@ -14,7 +14,7 @@ module.exports = {
                     },
                     filters: {
                         user: {
-                            id: { $eq: userId }
+                            customer_id: { $eq: userId }
                         }
                     }
                 }
@@ -60,33 +60,18 @@ module.exports = {
             return err;
         }
     },
-    // addWorkouts: async (userId, body) => {
-
-    //     try {
-    //         const entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
-
-    //             data: {
-    //                 user: userId,
-    //                 exercises: body.data.exercises,
-    //                 publishedAt: new Date()
-    //             }
-    //         });
-    //         let exercisesReduced = {
-    //             messaage: entry
-    //         };
-    //         return exercisesReduced;
-
-    //     } catch (err) {
-    //         return err;
-    //     }
-    // },
     updateWorkouts: async (userId, body, method) => {
 
         try {
             console.log(method)
+            const [user_ob1, count1] = await strapi.db.query('api::custom-user.custom-user').findWithCount({
+                select: ['id'],
+                where: { customer_id: userId },
+            });
+            const userID_extracted = await user_ob1
             const [user_ob, count] = await strapi.db.query('api::saved-workout.saved-workout').findWithCount({
                 // select: ['user', 'exercises'],
-                where: { user: userId },
+                where: { user: userID_extracted[0].id },
                 populate: { user: true, exercises: { populate: { id: true } } },
             });
             const user = await user_ob
@@ -105,7 +90,7 @@ module.exports = {
                         const accum = await acc;
                         accum.push(item.id);
                         return accum;
-                    }, []);
+                    }, []); //Exercise ID come into result
                 }
                 if (method === 'DELETE') {
                     const index = result.indexOf(body.data.exercises);
@@ -118,7 +103,7 @@ module.exports = {
                     result = result.concat([body.data.exercises])
 
                 entry = await strapi.db.query('api::saved-workout.saved-workout').update({
-                    where: { user: userId },
+                    where: { user: userID_extracted[0].id },
                     data: {
                         exercises: result,
                     },
@@ -128,7 +113,7 @@ module.exports = {
                 entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
 
                     data: {
-                        user: userId,
+                        user: userID_extracted[0].id,
                         exercises: body.data.exercises,
                         publishedAt: new Date()
                     }
