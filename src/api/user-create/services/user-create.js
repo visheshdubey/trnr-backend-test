@@ -40,6 +40,9 @@ module.exports = {
                         phone: body.data.phone || user[0].phone,
                         email: body.data.email || user[0].email,
                         DOB: body.data.DOB || user[0].DOB,
+                        country: body.data.country || user[0].country,
+                        gender: body.data.gender || user[0].gender,
+                        tnc: body.data.tnc || user[0].tnc,
                     }
                 });
             }
@@ -49,7 +52,7 @@ module.exports = {
 
                     data: {
                         id: userId,
-                        firstName: body.data.firstName,
+                        firstName: body.data.firstName || '',
                         lastName: body.data.lastName || '',
                         phone: body.data.phone || '',
                         email: body.data.email || '',
@@ -62,7 +65,7 @@ module.exports = {
                 });
             }
             let exercisesReduced = {
-                messaage: user
+                messaage: entry[0]
             };
 
             return exercisesReduced;
