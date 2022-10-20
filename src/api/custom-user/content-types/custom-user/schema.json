@@ -42,12 +42,18 @@
         "MALE",
         "FEMALE",
         "OTHER"
-      ]
+      ],
+      "default": "OTHER"
     },
     "tnc": {
       "type": "boolean",
       "default": true,
       "required": true
+    },
+    "customer_id": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
     }
   }
 }
