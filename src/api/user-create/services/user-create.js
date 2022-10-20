@@ -5,7 +5,7 @@ module.exports = {
             const entries = await strapi.entityService.findMany(
                 "api::custom-user.custom-user",
                 {
-                    fields: ["id", 'firstName', 'lastName', 'phone', 'email', 'DOB'],
+                    fields: ["id", 'firstName', 'lastName', 'phone', 'email', 'DOB', 'country', 'gender', 'tnc'],
                     limit: 1,
                     filters: {
                         id: { $eq: userId }
@@ -30,6 +30,7 @@ module.exports = {
 
             let entry;
 
+            //Update if user Exist
             if (count != 0) {
                 entry = await strapi.db.query('api::custom-user.custom-user').update({
                     where: { id: userId },
@@ -42,6 +43,7 @@ module.exports = {
                     }
                 });
             }
+            //Create a new user
             else {
                 entry = await strapi.entityService.create('api::custom-user.custom-user', {
 
@@ -52,6 +54,9 @@ module.exports = {
                         phone: body.data.phone || '',
                         email: body.data.email || '',
                         DOB: body.data.DOB || '',
+                        country: body.data.country || '',
+                        gender: body.data.gender || '',
+                        tnc: body.data.tnc || '',
                         publishedAt: new Date()
                     }
                 });

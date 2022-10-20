@@ -32,6 +32,22 @@
     },
     "DOB": {
       "type": "date"
+    },
+    "country": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "OTHER"
+      ]
+    },
+    "tnc": {
+      "type": "boolean",
+      "default": true,
+      "required": true
     }
   }
 }
