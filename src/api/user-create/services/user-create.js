@@ -8,7 +8,7 @@ module.exports = {
                     fields: ["id", 'firstName', 'lastName', 'phone', 'email', 'DOB', 'country', 'gender', 'tnc'],
                     limit: 1,
                     filters: {
-                        id: { $eq: userId }
+                        customer_id: { $eq: userId }
                     }
                 }
             );
@@ -23,17 +23,18 @@ module.exports = {
 
         try {
             const [user_ob, count] = await strapi.db.query('api::custom-user.custom-user').findWithCount({
-                select: ['id', 'firstName', 'lastName', 'phone', 'email', 'DOB'],
-                where: { id: userId },
+                select: ['id', 'firstName', 'lastName', 'phone', 'email', 'DOB', 'customer_id'],
+                where: { customer_id: userId },
             });
             const user = await user_ob
 
             let entry;
-
+            console.log(JSON.stringify(user));
             //Update if user Exist
             if (count != 0) {
                 entry = await strapi.db.query('api::custom-user.custom-user').update({
-                    where: { id: userId },
+                    select: ['id', 'firstName', 'lastName', 'phone', 'email', 'DOB', 'customer_id'],
+                    where: { customer_id: userId },
                     data: {
                         firstName: body.data.firstName,
                         lastName: body.data.lastName || user[0].lastName,
@@ -43,6 +44,7 @@ module.exports = {
                         country: body.data.country || user[0].country,
                         gender: body.data.gender || user[0].gender,
                         tnc: body.data.tnc || user[0].tnc,
+                        // customer_id: body.data.customer_id || user[0].customer_id,
                     }
                 });
             }
@@ -51,7 +53,7 @@ module.exports = {
                 entry = await strapi.entityService.create('api::custom-user.custom-user', {
 
                     data: {
-                        id: userId,
+                        customer_id: userId,
                         firstName: body.data.firstName || '',
                         lastName: body.data.lastName || '',
                         phone: body.data.phone || '',
