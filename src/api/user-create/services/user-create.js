@@ -65,7 +65,7 @@ module.exports = {
                 });
             }
             let exercisesReduced = {
-                messaage: entry[0]
+                messaage: entry
             };
 
             return exercisesReduced;
