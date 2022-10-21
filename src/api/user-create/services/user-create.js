@@ -1,6 +1,19 @@
+/**
+ * We take shopify customer ID as url parameter and, we do CRUD on the basis of that particular id
+ * We don't want strapi default ID to be accessed because it is sequential in nature.
+ * 
+ * UPDATE USER :- 
+ * This method takes input CustomerID()Shopify, body
+ * 
+ * If the user is not created it will create, else it will upate the existing user
+ * It finds user on the basis of customerId
+ *
+ */
+
+
+
 module.exports = {
     getUser: async (userId) => {
-        // yo
         try {
             const entries = await strapi.entityService.findMany(
                 "api::custom-user.custom-user",
@@ -30,6 +43,7 @@ module.exports = {
 
             let entry;
             console.log(JSON.stringify(user));
+
             //Update if user Exist
             if (count != 0) {
                 entry = await strapi.db.query('api::custom-user.custom-user').update({
@@ -44,7 +58,6 @@ module.exports = {
                         country: body.data.country || user[0].country,
                         gender: body.data.gender || user[0].gender,
                         tnc: body.data.tnc || user[0].tnc,
-                        // customer_id: body.data.customer_id || user[0].customer_id,
                     }
                 });
             }
