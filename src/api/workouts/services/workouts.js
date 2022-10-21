@@ -27,6 +27,9 @@ module.exports = {
                         exercise_category: {
                             name: true
                         },
+                        product: {
+                            name: true
+                        },
                         thumbnail: {
                             url: true
                         }
@@ -44,7 +47,8 @@ module.exports = {
                             id: item.id,
                             name: item.name || "",
                             image: await getExerciseRelations(item.id).then(entry => entry.thumbnail?.url) || "",
-                            exercise_category: await getExerciseRelations(item.id).then(entry => entry.exercise_category?.name) || ""
+                            exercise_category: await getExerciseRelations(item.id).then(entry => entry.exercise_category?.name) || "",
+                            product: await getExerciseRelations(item.id).then(entry => entry.product?.name) || ""
                         });
                         return accum;
                     }, []);
