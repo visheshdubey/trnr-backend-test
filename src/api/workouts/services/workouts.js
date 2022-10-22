@@ -81,7 +81,7 @@ module.exports = {
             const user = await user_ob
 
 
-            // console.log(result);
+            // console.log(result)
 
 
             let entry;
