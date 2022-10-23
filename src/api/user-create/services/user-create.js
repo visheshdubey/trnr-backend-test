@@ -26,6 +26,7 @@ module.exports = {
                 }
             );
             console.log(entries);
+
             return entries[0];
         } catch (err) {
             return err;
@@ -36,7 +37,7 @@ module.exports = {
 
         try {
             const [user_ob, count] = await strapi.db.query('api::custom-user.custom-user').findWithCount({
-                select: ['id', 'firstName', 'lastName', 'phone', 'email', 'DOB', 'customer_id'],
+                select: ['firstName', 'lastName', 'phone', 'email', 'DOB', 'customer_id'],
                 where: { customer_id: userId },
             });
             const user = await user_ob
@@ -47,7 +48,7 @@ module.exports = {
             //Update if user Exist
             if (count != 0) {
                 entry = await strapi.db.query('api::custom-user.custom-user').update({
-                    select: ['id', 'firstName', 'lastName', 'phone', 'email', 'DOB', 'customer_id'],
+                    select: ['firstName', 'lastName', 'phone', 'email', 'DOB', 'customer_id'],
                     where: { customer_id: userId },
                     data: {
                         firstName: body.data.firstName,
