@@ -72,13 +72,13 @@ module.exports = {
                 select: ['id'],
                 where: { customer_id: userId },
             });
-            const userID_extracted = await user_ob1
+            const userID_extracted = user_ob1
             const [user_ob, count] = await strapi.db.query('api::saved-workout.saved-workout').findWithCount({
                 // select: ['user', 'exercises'],
                 where: { user: userID_extracted[0].id },
                 populate: { user: true, exercises: { populate: { id: true } } },
             });
-            const user = await user_ob
+            const user = user_ob
 
 
             // console.log(result)
@@ -118,13 +118,14 @@ module.exports = {
 
                     data: {
                         user: userID_extracted[0].id,
-                        exercises: body.data.exercises,
+                        exercises: [body.data.exercises],
                         publishedAt: new Date()
                     }
                 });
+
             }
             let exercisesReduced = {
-                messaage: user
+                messaage: entry
             };
 
             return exercisesReduced;
