@@ -18,7 +18,7 @@ module.exports = {
             const entries = await strapi.entityService.findMany(
                 "api::custom-user.custom-user",
                 {
-                    fields: ["id", 'firstName', 'lastName', 'phone', 'email', 'DOB', 'country', 'gender', 'tnc'],
+                    fields: ['firstName', 'lastName', 'phone', 'email', 'DOB', 'country', 'gender', 'tnc'],
                     limit: 1,
                     filters: {
                         customer_id: { $eq: userId }
@@ -71,10 +71,10 @@ module.exports = {
                         lastName: body.data.lastName || '',
                         phone: body.data.phone || '',
                         email: body.data.email || '',
-                        DOB: body.data.DOB || '',
+                        DOB: body.data.DOB || new Date("1-1-1000"),
                         country: body.data.country || '',
                         gender: body.data.gender || '',
-                        tnc: body.data.tnc || true,
+                        tnc: body.data.tnc || 'FALSE',
                         publishedAt: new Date()
                     }
                 });
