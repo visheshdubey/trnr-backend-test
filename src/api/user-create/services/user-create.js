@@ -74,7 +74,7 @@ module.exports = {
                         email: body.data.email || '',
                         DOB: body.data.DOB || new Date("1-1-1000"),
                         country: body.data.country || '',
-                        gender: body.data.gender || '',
+                        gender: body.data.gender || 'OTHER',
                         tnc: body.data.tnc || 'FALSE',
                         publishedAt: new Date()
                     }
