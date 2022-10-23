@@ -14,7 +14,8 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "regex": "^[A-Z 0-9]+$"
     },
     "exercises": {
       "type": "relation",

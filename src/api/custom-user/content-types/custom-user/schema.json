@@ -45,15 +45,17 @@
       ],
       "default": "OTHER"
     },
-    "tnc": {
-      "type": "boolean",
-      "default": true,
-      "required": true
-    },
     "customer_id": {
       "type": "biginteger",
       "required": true,
       "unique": true
+    },
+    "tnc": {
+      "type": "enumeration",
+      "enum": [
+        "FALSE",
+        "TRUE"
+      ]
     }
   }
 }
