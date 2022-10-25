@@ -32,6 +32,30 @@
     },
     "DOB": {
       "type": "date"
+    },
+    "country": {
+      "type": "string"
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "MALE",
+        "FEMALE",
+        "OTHER"
+      ],
+      "default": "OTHER"
+    },
+    "customer_id": {
+      "type": "biginteger",
+      "required": true,
+      "unique": true
+    },
+    "tnc": {
+      "type": "enumeration",
+      "enum": [
+        "FALSE",
+        "TRUE"
+      ]
     }
   }
 }

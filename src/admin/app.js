@@ -19,19 +19,7 @@ export default {
         menu: {
             logo: Logo,
         },
-        // Override or extend the theme
-        // theme: {
-        //     colors: {
-        //         primary100: '#bbb',
-        //         primary200: '#ccc',
-        //         primary500: '#ddd',
-        //         primary600: '#eee',
-        //         primary700: '#fff',
-        //         danger700: '#b72b1a'
 
-        //     },
-        // },
-        // Extend the translations
         translations: {
             en: {
                 "app.components.LeftMenu.navbrand.title": "TRNR Dashboard",

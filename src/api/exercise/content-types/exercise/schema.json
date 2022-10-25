@@ -14,17 +14,15 @@
   "attributes": {
     "name": {
       "type": "string",
-      "regex": "^[A-Z 0-9]+$"
+      "maxLength": 20,
+      "required": true
     },
     "thumbnail": {
       "type": "media",
       "multiple": false,
-      "required": false,
+      "required": true,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
+        "images"
       ]
     },
     "image_large": {
@@ -32,10 +30,7 @@
       "multiple": true,
       "required": false,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
+        "images"
       ]
     },
     "image_small": {
@@ -43,10 +38,7 @@
       "multiple": true,
       "required": false,
       "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
+        "images"
       ]
     },
     "video": {

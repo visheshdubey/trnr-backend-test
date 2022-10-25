@@ -14,7 +14,7 @@ module.exports = {
                     },
                     filters: {
                         user: {
-                            id: { $eq: userId }
+                            customer_id: { $eq: userId }
                         }
                     }
                 }
@@ -25,6 +25,9 @@ module.exports = {
                     fields: ["id", "name", "createdAt"],
                     populate: {
                         exercise_category: {
+                            name: true
+                        },
+                        product: {
                             name: true
                         },
                         thumbnail: {
@@ -44,7 +47,8 @@ module.exports = {
                             id: item.id,
                             name: item.name || "",
                             image: await getExerciseRelations(item.id).then(entry => entry.thumbnail?.url) || "",
-                            exercise_category: await getExerciseRelations(item.id).then(entry => entry.exercise_category?.name) || ""
+                            exercise_category: await getExerciseRelations(item.id).then(entry => entry.exercise_category?.name) || "",
+                            product: await getExerciseRelations(item.id).then(entry => entry.product?.name) || ""
                         });
                         return accum;
                     }, []);
@@ -60,39 +64,24 @@ module.exports = {
             return err;
         }
     },
-    // addWorkouts: async (userId, body) => {
-
-    //     try {
-    //         const entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
-
-    //             data: {
-    //                 user: userId,
-    //                 exercises: body.data.exercises,
-    //                 publishedAt: new Date()
-    //             }
-    //         });
-    //         let exercisesReduced = {
-    //             messaage: entry
-    //         };
-    //         return exercisesReduced;
-
-    //     } catch (err) {
-    //         return err;
-    //     }
-    // },
     updateWorkouts: async (userId, body, method) => {
 
         try {
             console.log(method)
+            const [user_ob1, count1] = await strapi.db.query('api::custom-user.custom-user').findWithCount({
+                select: ['id'],
+                where: { customer_id: userId },
+            });
+            const userID_extracted = user_ob1
             const [user_ob, count] = await strapi.db.query('api::saved-workout.saved-workout').findWithCount({
                 // select: ['user', 'exercises'],
-                where: { user: userId },
+                where: { user: userID_extracted[0].id },
                 populate: { user: true, exercises: { populate: { id: true } } },
             });
-            const user = await user_ob
+            const user = user_ob
 
 
-            // console.log(result);
+            // console.log(result)
 
 
             let entry;
@@ -105,12 +94,12 @@ module.exports = {
                         const accum = await acc;
                         accum.push(item.id);
                         return accum;
-                    }, []);
+                    }, []); //Exercise ID come into result
                 }
                 if (method === 'DELETE') {
                     const index = result.indexOf(body.data.exercises);
                     console.log(body.data.exercises);
-                    if (index > -1) { // only splice array when item is found
+                    if (index > -1) { // only splice array when item is foun
                         result.splice(index, 1);
                     }
                 }
@@ -118,7 +107,7 @@ module.exports = {
                     result = result.concat([body.data.exercises])
 
                 entry = await strapi.db.query('api::saved-workout.saved-workout').update({
-                    where: { user: userId },
+                    where: { user: userID_extracted[0].id },
                     data: {
                         exercises: result,
                     },
@@ -128,14 +117,15 @@ module.exports = {
                 entry = await strapi.entityService.create('api::saved-workout.saved-workout', {
 
                     data: {
-                        user: userId,
-                        exercises: body.data.exercises,
+                        user: userID_extracted[0].id,
+                        exercises: [body.data.exercises],
                         publishedAt: new Date()
                     }
                 });
+
             }
             let exercisesReduced = {
-                messaage: user
+                messaage: entry
             };
 
             return exercisesReduced;

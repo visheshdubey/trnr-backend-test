@@ -1,8 +1,10 @@
 module.exports = {
     exerciseCategoryList: async (productId) => {
 
-        /* Generates list of exercise categories which has exercise in it. 
-        Those exercise categories which are not alloted any exercise are opted out from the result*/
+        /**  Generates list of exercise categories which has exercise in it. 
+         *   Those exercise categories which are not alloted any exercise are opted out from the result
+         *   These data is for Material-TAB layout, this data is needed to prepare the tab layout well in advance
+         * */
         try {
             // fetching data
             const entries = await strapi.entityService.findMany(
