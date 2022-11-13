@@ -28,7 +28,7 @@ module.exports = {
                         id: item.id,
                         name: item.name || "",
                         image: item.image?.url || "",
-                        image: item.blur_image?.url || "",
+                        blur_image: item.blur_image?.url || "",
                         order: item.order || "",
                         updatedAt: new Date(item.updatedAt) || "",
                     });
