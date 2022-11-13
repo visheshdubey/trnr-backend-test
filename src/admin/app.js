@@ -30,6 +30,7 @@ export default {
         tutorials: false,
         // Disable notifications about new Strapi releases
         notifications: { release: false },
+
     },
 
     bootstrap() { },

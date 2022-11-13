@@ -7,9 +7,12 @@ module.exports = {
             const entries = await strapi.entityService.findMany(
                 "api::category.category",
                 {
-                    fields: ["id", "name", "updatedAt"],
+                    fields: ["id", "name", "order", "updatedAt"],
                     populate: {
                         image: {
+                            fields: ["url"],
+                        },
+                        blur_image: {
                             fields: ["url"],
                         },
                     },
@@ -25,6 +28,8 @@ module.exports = {
                         id: item.id,
                         name: item.name || "",
                         image: item.image?.url || "",
+                        image: item.blur_image?.url || "",
+                        order: item.order || "",
                         updatedAt: new Date(item.updatedAt) || "",
                     });
                     return acc;

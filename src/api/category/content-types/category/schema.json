@@ -35,6 +35,16 @@
       "relation": "oneToMany",
       "target": "api::product.product",
       "mappedBy": "category"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "blur_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

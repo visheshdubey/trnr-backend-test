@@ -19,7 +19,7 @@
     "image": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -38,6 +38,16 @@
     },
     "description": {
       "type": "text"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "blur_image": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }

@@ -14,13 +14,12 @@
   "attributes": {
     "name": {
       "type": "string",
-      "maxLength": 20,
       "required": true
     },
     "thumbnail": {
       "type": "media",
       "multiple": false,
-      "required": true,
+      "required": false,
       "allowedTypes": [
         "images"
       ]
@@ -66,6 +65,32 @@
     },
     "description": {
       "type": "text"
+    },
+    "order": {
+      "type": "integer"
+    },
+    "blur_image_large": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "video_thumbnail": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": [
+        "images"
+      ]
+    },
+    "blur_image_small": {
+      "allowedTypes": [
+        "images"
+      ],
+      "type": "media",
+      "multiple": false
     }
   }
 }
