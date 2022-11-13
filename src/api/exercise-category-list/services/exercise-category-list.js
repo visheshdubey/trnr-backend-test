@@ -175,7 +175,7 @@ module.exports = {
                         name: item.name || "",
                         image: item.thumbnail?.url || "",
 
-                        blur_image: item.thumbnail?.url || "",
+                        blur_image: item.blur_image?.url || "",
                         category: item.product.category?.name || "",
                         order: item.order || 0,
                     });
