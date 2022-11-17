@@ -129,7 +129,7 @@ module.exports = {
                         thumbnail: {
                             url: true
                         },
-                        blur_image: {
+                        blur_thumbnail: {
                             url: true
                         },
                         product: {
@@ -175,7 +175,7 @@ module.exports = {
                         name: item.name || "",
                         image: item.thumbnail?.url || "",
 
-                        blur_image: item.blur_image?.url || "",
+                        blur_image: item.blur_thumbnail?.url || "",
                         category: item.product.category?.name || "",
                         order: item.order || 0,
                     });
