@@ -16,6 +16,7 @@ module.exports = {
                             fields: ["url"],
                         },
                     },
+                    sort: { order: 'asc' }
                 }
             );
 
@@ -29,7 +30,7 @@ module.exports = {
                         name: item.name || "",
                         image: item.image?.url || "",
                         blur_image: item.blur_image?.url || "",
-                        order: item.order || "",
+                        order: item.order || 0,
                         updatedAt: new Date(item.updatedAt) || "",
                     });
                     return acc;

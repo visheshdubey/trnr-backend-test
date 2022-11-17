@@ -20,7 +20,8 @@ module.exports = {
                                 $eq: categoryId
                             }
                         }
-                    }
+                    },
+                    sort: { order: 'asc' }
                 }
 
             );

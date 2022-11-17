@@ -24,7 +24,8 @@ module.exports = {
                                 $eq: productId
                             }
                         }
-                    }
+                    },
+                    sort: { order: 'asc' }
                 }
             );
 
@@ -160,6 +161,7 @@ module.exports = {
                             }
                         ]
                     },
+                    sort: { order: 'asc' }
                     // sort: { order: 'desc' },  // This will sort the list and generates a ordered response
                 }
             );
