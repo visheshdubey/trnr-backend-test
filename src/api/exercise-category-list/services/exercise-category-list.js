@@ -25,7 +25,11 @@ module.exports = {
                             }
                         }
                     },
-                    sort: { order: 'asc' }
+                    sort: {
+                        exercise_category: {
+                            order: 'asc'
+                        }
+                    }
                 }
             );
 
