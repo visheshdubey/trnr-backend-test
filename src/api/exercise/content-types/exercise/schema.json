@@ -100,6 +100,9 @@
       "allowedTypes": [
         "images"
       ]
+    },
+    "product_link": {
+      "type": "string"
     }
   }
 }
