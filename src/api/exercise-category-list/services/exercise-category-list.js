@@ -82,12 +82,12 @@ module.exports = {
             const entries = await strapi.entityService.findOne(
                 "api::exercise.exercise", exerciseId,
                 {
-                    fields: ["id", "name", "description", "updatedAt", "product_link"],
+                    fields: ["id", "name", "description", "updatedAt"],
                     populate: {
                         exercise_category: {
                             fields: ["id", "name", "updatedAt"],
                         },
-                        product:{
+                        product: {
                             fields: ["product_link"],
                         },
                         video: {
