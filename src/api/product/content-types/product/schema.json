@@ -43,11 +43,15 @@
       "type": "integer"
     },
     "blur_image": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
       "allowedTypes": [
         "images"
-      ],
-      "type": "media",
-      "multiple": false
+      ]
+    },
+    "product_link": {
+      "type": "string"
     }
   }
 }
