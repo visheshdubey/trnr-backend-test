@@ -87,6 +87,9 @@ module.exports = {
                         exercise_category: {
                             fields: ["id", "name", "updatedAt"],
                         },
+                        product:{
+                            fields: ["product_link"],
+                        },
                         video: {
                             fields: ["url"],
                         },
