@@ -31,11 +31,11 @@ module.exports = ({ env }) => ({
         config: {
             provider: 'nodemailer',
             providerOptions: {
-                host: env('SMTP_HOST', 'smtp.hostinger.com'),
-                port: env('SMTP_PORT', 465),
+                host: env('SMTP_HOST'),
+                port: env('SMTP_PORT'),
                 auth: {
-                    user: env('SMTP_USERNAME', 'trnr@stackwaystech.com'),
-                    pass: env('SMTP_PASSWORD', 'Zxcvbnm@123'),
+                    user: env('SMTP_USERNAME'),
+                    pass: env('SMTP_PASSWORD'),
                 },
                 // ... any custom nodemailer options
             },
