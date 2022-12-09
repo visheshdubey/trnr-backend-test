@@ -1,5 +1,5 @@
 module.exports = ({ env }) => (
-    env('DEVELOPMENT', false) && {
+    {
         upload: {
             config: {
                 provider: 'aws-s3',
@@ -22,28 +22,46 @@ module.exports = ({ env }) => (
                     },
                 }
             },
-        }
-    });
-
-module.exports = ({ env }) => ({
-    // ...
-    email: {
-        config: {
-            provider: 'nodemailer',
-            providerOptions: {
-                host: env('SMTP_HOST'),
-                port: env('SMTP_PORT'),
-                auth: {
-                    user: env('SMTP_USERNAME'),
-                    pass: env('SMTP_PASSWORD'),
+        },
+        email: {
+            config: {
+                provider: 'nodemailer',
+                providerOptions: {
+                    host: env('SMTP_HOST'),
+                    port: env('SMTP_PORT'),
+                    auth: {
+                        user: env('SMTP_USERNAME'),
+                        pass: env('SMTP_PASSWORD'),
+                    },
+                    // ... any custom nodemailer options
                 },
-                // ... any custom nodemailer options
-            },
-            settings: {
-                defaultFrom: 'trnr@stackwaystech.com',
-                defaultReplyTo: 'trnr@stackwaystech.com',
+                settings: {
+                    defaultFrom: 'trnr@stackwaystech.com',
+                    defaultReplyTo: 'trnr@stackwaystech.com',
+                },
             },
         },
-    },
-    // ...
-});
+    });
+
+// module.exports = ({ env }) => ({
+//     // ...
+//     email: {
+//         config: {
+//             provider: 'nodemailer',
+//             providerOptions: {
+//                 host: env('SMTP_HOST'),
+//                 port: env('SMTP_PORT'),
+//                 auth: {
+//                     user: env('SMTP_USERNAME'),
+//                     pass: env('SMTP_PASSWORD'),
+//                 },
+//                 // ... any custom nodemailer options
+//             },
+//             settings: {
+//                 defaultFrom: 'trnr@stackwaystech.com',
+//                 defaultReplyTo: 'trnr@stackwaystech.com',
+//             },
+//         },
+//     },
+//     // ...
+// });

@@ -2,17 +2,17 @@ module.exports = {
   routes: [
     {
       method: 'GET',
-      path: '/user-create/:userId',
-      handler: 'user-create.getUser',
+      path: '/profile/',
+      handler: 'profile-api.getProfile',
       config: {
         policies: [],
         middlewares: [],
-      },
+      }
     },
     {
       method: 'POST',
-      path: '/user-create/:userId',
-      handler: 'user-create.updateUser',
+      path: '/profile/:userID',
+      handler: 'profile-api.createProfile',
       config: {
         policies: [],
         middlewares: [],
@@ -20,8 +20,8 @@ module.exports = {
     },
     {
       method: 'PUT',
-      path: '/user-create/:userId',
-      handler: 'user-create.updateUser',
+      path: '/profile/',
+      handler: 'profile-api.updateProfile',
       config: {
         policies: [],
         middlewares: [],

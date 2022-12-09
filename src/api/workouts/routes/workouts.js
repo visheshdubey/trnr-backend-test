@@ -2,7 +2,7 @@ module.exports = {
   routes: [
     {
       method: 'GET',
-      path: '/workouts/:userId',
+      path: '/workouts/',
       handler: 'workouts.Workouts',
       config: {
         policies: [],
@@ -11,7 +11,7 @@ module.exports = {
     },
     {
       method: 'POST',
-      path: '/workouts/:userId',
+      path: '/workouts/',
       handler: 'workouts.updateWorkouts',
       config: {
         policies: [],
@@ -20,21 +20,13 @@ module.exports = {
     },
     {
       method: 'PUT',
-      path: '/workouts/:userId',
+      path: '/workouts/',
       handler: 'workouts.updateWorkouts',
       config: {
         policies: [],
         middlewares: [],
       },
     },
-    {
-      method: 'DELETE',
-      path: '/workouts/:userId',
-      handler: 'workouts.updateWorkouts',
-      config: {
-        policies: [],
-        middlewares: [],
-      },
-    },
+
   ],
 };
