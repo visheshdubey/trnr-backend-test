@@ -63,14 +63,14 @@
       "inversedBy": "users",
       "configurable": false
     },
-    "uid": {
-      "type": "uid",
-      "targetField": "username"
+    "abcd": {
+      "type": "string"
     },
-    "exercises": {
+    "user_profile": {
       "type": "relation",
-      "relation": "oneToMany",
-      "target": "api::exercise.exercise"
+      "relation": "oneToOne",
+      "target": "api::custom-user.custom-user",
+      "mappedBy": "user_id"
     }
   }
 }
