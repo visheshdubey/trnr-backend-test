@@ -24,7 +24,7 @@ module.exports = {
                const entries = await strapi.entityService.findMany(
                     "api::custom-user.custom-user",
                     {
-                         fields: ['firstName', 'lastName', 'phone', 'email', 'DOB', 'country', 'gender', 'tnc'],
+                         fields: ['firstName', 'lastName', 'email', 'DOB', 'country', 'gender', 'tnc'],
                          populate: { user_id: { fields: ["id"] } },
                          limit: 1,
                          filters: {
