@@ -100,8 +100,8 @@ module.exports = {
                if (count != 0) {
                     entry = await strapi.db.query('api::custom-user.custom-user').update({
                          select: ['firstName', 'lastName', 'email', 'DOB'],
-                         populate: ['customer_id'],
-                         where: { customer_id: userId },
+                         populate: ['user_id'],
+                         where: { user_id: userId },
                          data: {
                               firstName: body.data.firstName,
                               lastName: body.data.lastName || user[0].lastName,
