@@ -87,7 +87,7 @@ module.exports = {
      updateProfile: async (userId, body) => {
           try {
                const [user_ob, count] = await strapi.db.query('api::custom-user.custom-user').findWithCount({
-                    select: ['firstName', 'lastName', 'phone', 'email', 'DOB'],
+                    select: ['firstName', 'lastName', 'email', 'DOB'],
                     populate: ['user_id'],
                     where: { user_id: userId },
                });
@@ -99,13 +99,12 @@ module.exports = {
                //Update if user Exist
                if (count != 0) {
                     entry = await strapi.db.query('api::custom-user.custom-user').update({
-                         select: ['firstName', 'lastName', 'phone', 'email', 'DOB'],
+                         select: ['firstName', 'lastName', 'email', 'DOB'],
                          populate: ['customer_id'],
                          where: { customer_id: userId },
                          data: {
                               firstName: body.data.firstName,
                               lastName: body.data.lastName || user[0].lastName,
-                              phone: body.data.phone || user[0].phone,
                               email: body.data.email || user[0].email,
                               DOB: body.data.DOB || user[0].DOB,
                               country: body.data.country || user[0].country,
