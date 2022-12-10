@@ -118,7 +118,7 @@ module.exports = {
                     entry = "Profile dosen't exist"
                }
                let exercisesReduced = {
-                    messaage: entry
+                    message: entry
                };
 
                return exercisesReduced;
