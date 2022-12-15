@@ -36,8 +36,8 @@ module.exports = ({ env }) => (
                     // ... any custom nodemailer options
                 },
                 settings: {
-                    defaultFrom: 'trnr@stackwaystech.com',
-                    defaultReplyTo: 'trnr@stackwaystech.com',
+                    defaultFrom: 'hello@trnr.com',
+                    defaultReplyTo: 'hello@trnr.com',
                 },
             },
         },
