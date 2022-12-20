@@ -7,5 +7,5 @@ module.exports = ({ env }) => ({
 });
 
 module.exports = ({ env }) => ({
-  url: `https://apiapp.trnr.com/`,
+  url: `https://app.trnr.com/`,
 })
