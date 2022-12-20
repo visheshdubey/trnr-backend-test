@@ -27,7 +27,7 @@ const body = (x, y) => ({
 const resetPassword = async (x, y) => {
      try {
 
-          await fetch('https://apiapp.trnr.com/api/auth/reset-password/', {
+          await fetch('https://app.trnr.com/api/auth/reset-password/', {
                method: 'POST',
                headers: {
                     'Accept': 'application/json',
