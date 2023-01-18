@@ -33,7 +33,7 @@ const loginAsync = async (x, y) => {
                     if (data?.jwt) {
                          alert('login Successfull!')
                          window.localStorage.setItem('url-defense-csv', data?.jwt);
-                         window.location.href = `./index.html`;
+                         window.location.href = `${domain}/usercsv/index.html`;
                     }
                     else {
                          alert('login unsuccessfull! Try Again later.')
