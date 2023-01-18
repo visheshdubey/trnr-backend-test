@@ -25,7 +25,8 @@ const get = async function () {
 
      // Json Get url
      const development = false;
-     const url = development ? 'http://localhost:1337/api/usercsv' : 'https://app.trnr.com/api/usercsv';
+     const domain = development ? 'http://localhost:1337' : 'https://app.trnr.com';
+     const url = `${domain}/api/usercsv`
 
      // Fetching a data in a form of json objects
      try {
@@ -66,7 +67,7 @@ const get = async function () {
                     }
                     else {
                          alert(`Try Again later. ${data?.error?.message}`)
-                         window.location.href = "/urldefense-login.html";
+                         window.location.href = `${domain}/urldefense-login.html`;
                     }
                })
           }).catch((error) => console.log(error));

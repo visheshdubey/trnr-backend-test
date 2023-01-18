@@ -19,7 +19,8 @@ const body = (x, y) => ({
 const loginAsync = async (x, y) => {
      try {
           const development = false;
-          const url = development ? 'http://localhost:1337/api/auth/local/' : 'https://app.trnr.com/api/auth/local/';
+          const domain = development ? 'http://localhost:1337' : 'https://app.trnr.com';
+          const url = `${domain}/api/auth/local/`
           await fetch(url, {
                method: 'POST',
                headers: {
@@ -32,7 +33,7 @@ const loginAsync = async (x, y) => {
                     if (data?.jwt) {
                          alert('login Successfull!')
                          window.localStorage.setItem('url-defense-csv', data?.jwt);
-                         window.location.href = "/index.html";
+                         window.location.href = `${domain}/index.html`;
                     }
                     else {
                          alert('login unsuccessfull! Try Again later.')
