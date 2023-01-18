@@ -67,7 +67,7 @@ const get = async function () {
                     }
                     else {
                          alert(`Try Again later. ${data?.error?.message}`)
-                         window.location.href = `${domain}/usercsv/urldefense-login.html`;
+                         window.location.href = `./urldefense-login.html`;
                     }
                })
           }).catch((error) => console.log(error));
