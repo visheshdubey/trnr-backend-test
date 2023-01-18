@@ -1,5 +1,12 @@
 module.exports = ({ env }) => (
     {
+        'users-permissions': {
+            config: {
+                jwt: {
+                    expiresIn: '2y',
+                },
+            },
+        },
         upload: {
             config: {
                 provider: 'aws-s3',
