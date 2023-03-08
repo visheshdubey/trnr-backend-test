@@ -15,7 +15,7 @@ const reset = () => {
           alert(' Your password must be 8-20 characters long, contain letters and numbers.');
      }
      else {
-          login(p, value)
+          resetPassword(p, value)
      }
 }
 document.getElementById("myButton").addEventListener("click", reset);
