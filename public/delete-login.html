@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>TRNR | Login</title>
+     <!-- CSS only -->
+     <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-light h-100">
+     <nav class="navbar bg-dark">
+          <div class="container-xl">
+               <a class="navbar-brand text-white" href="#">TRNR</a>
+          </div>
+     </nav>
+     <div class="row justify-content-center mt-5">
+          <div class="h-100 col-lg-4 row align-content-center">
+               <!-- ----------------------------------------------------------------------- -->
+               <!--                               LOGIN FORM                                -->
+               <!-- ----------------------------------------------------------------------- -->
+               <div class="row justify-content-center p-5 bg-white">
+                    <h2>Please login to continue</h2>
+                    <div class="mb-3">
+                         <label for="inputPassword" class="form-label">Email</label>
+                         <input type="email" id="inputEmail" class="form-control" aria-describedby="passwordHelpBlock"
+                              required>
+                    </div>
+                    <div class="mb-3">
+                         <label for="confirmPassword" class="form-label">Password</label>
+                         <input type="password" class="form-control" id="confirmPassword">
+                    </div>
+                    <button class="btn btn-dark" id="myButton">Submit</button>
+                    <!-- </form> -->
+               </div>
+               <!-- ----------------------------------------------------------------------- -->
+               <!--                               DELETE FORM                               -->
+               <!-- ----------------------------------------------------------------------- -->
+               <div id="deleteForm" style="display: none;">
+                    <h2>Delete Form</h2>
+                    <div class="mb-3">
+                         <label for="deleteField1" class="form-label">Field 1</label>
+                         <input type="text" class="form-control" id="deleteField1">
+                    </div>
+                    <div class="mb-3">
+                         <label for="deleteField2" class="form-label">Field 2</label>
+                         <input type="text" class="form-control" id="deleteField2">
+                    </div>
+                    <!-- Add more delete form fields here -->
+                    <button class="btn btn-danger" id="deleteButton">Delete</button>
+               </div>
+
+          </div>
+     </div>
+</body>
+<!-- JavaScript Bundle with Popper -->
+<script src="bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="delete.js"></script>
+
+</html>
