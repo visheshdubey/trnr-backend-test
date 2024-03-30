@@ -29,8 +29,7 @@ jobs:
           script: |
             export PGPASSWORD='${{ secrets.DB_PASSWORD }}'
             DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')
-            FILENAME="${{ secrets.DB_NAME }}_$DATE.sql"
-            pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "~/backups/$FILENAME"
+            pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "~/backups/${{ secrets.DB_NAME }}_$DATE.sql"
 
       - name: Send email notification
         uses: dawidd6/action-send-mail@v2
