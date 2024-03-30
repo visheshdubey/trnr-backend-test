@@ -16,7 +16,7 @@ jobs:
       - name: Set up SSH connection
         uses: webfactory/ssh-agent@v0.5.3
         with:
-          ssh-private-key: ${{ secrets.SERVER_SSH_KEY }}
+          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
 
       - name: Deploy Strapi Backend
         uses: appleboy/ssh-action@master
