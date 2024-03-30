@@ -12,8 +12,13 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      # - name: Set up PostgreSQL client
-      #   run: sudo apt-get install -y postgresql-client
+      - name: Set DATE variable
+        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')" >> $GITHUB_ENV
+
+      - name: Use DATE variable
+        run: |
+          echo "The DATE is $DATE"
+          # Use $DATE to construct filenames or for other purposes
       - name: SSH and execute commands on the server
         uses: appleboy/ssh-action@master
         with:
@@ -25,21 +30,8 @@ jobs:
             export PGPASSWORD='${{ secrets.DB_PASSWORD }}'
             DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')
             FILENAME="${{ secrets.DB_NAME }}_$DATE.sql"
-            mkdir -p ~/backups
             pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "~/backups/$FILENAME"
             echo "FILENAME=$FILENAME" >> $GITHUB_ENV # Pass the filename to the next step
-      # - name: Dump database
-      #   env:
-      #     PGPASSWORD: ${{ secrets.DB_PASSWORD }}
-      #   run: |
-      #     DATE=$(date +'%Y-%m-%d')
-      #     pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > ${{ secrets.DB_NAME }}_$DATE.sql
-
-      # - name: Upload backup to repository (Optional)
-      #   uses: actions/upload-artifact@v2
-      #   with:
-      #     name: Database Backup
-      #     path: ${{ secrets.DB_NAME }}_*.sql
 
       - name: Send email notification
         uses: dawidd6/action-send-mail@v2
