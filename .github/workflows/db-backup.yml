@@ -1,8 +1,12 @@
 name: Weekly Database Backup
 
+# on:
+#   schedule:
+#     - cron: "20 * * * *" # Runs at 00:00 every Sunday
 on:
-  schedule:
-    - cron: "20 * * * *" # Runs at 00:00 every Sunday
+  push:
+    branches:
+      - main
 
 jobs:
   backup:
