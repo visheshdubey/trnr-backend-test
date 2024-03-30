@@ -54,6 +54,12 @@
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
       "inversedBy": "user_profile"
+    },
+    "delete_account_request": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::delete-account-request.delete-account-request",
+      "mappedBy": "custom_user"
     }
   }
 }

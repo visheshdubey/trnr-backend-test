@@ -71,6 +71,12 @@
       "relation": "oneToOne",
       "target": "api::custom-user.custom-user",
       "mappedBy": "user_id"
+    },
+    "delete_account_request": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::delete-account-request.delete-account-request",
+      "mappedBy": "users_permissions_user"
     }
   }
 }
