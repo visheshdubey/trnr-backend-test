@@ -10,7 +10,7 @@ $('#loginBtn').click(function async() {
      $('#spinner').removeClass('hidden');
      $(this).prop('disabled', true);
 
-     fetch('http://localhost:1337/api/auth/local/', {
+     fetch('https://app.trnr.com/api/auth/local/', {
           method: 'POST',
           headers: {
                'Content-Type': 'application/json'
@@ -71,7 +71,7 @@ $('#deleteBtn').click(function () {
      $('#spinner').removeClass('hidden');
      $(this).prop('disabled', true);
      var jwtToken = localStorage.getItem('jwtToken');
-     fetch('http://localhost:1337/api/delete', {
+     fetch('https://app.trnr.com/api/delete', {
           method: 'POST',
           headers: {
                'Content-Type': 'application/json',

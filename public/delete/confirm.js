@@ -10,7 +10,7 @@ $(document).ready(function () {
      var confirmationCode = getQueryParam('confirmationCode');
 
      // Make the GET request
-     fetch(`http://localhost:1337/api/delete/confirm/${confirmationCode}`, {
+     fetch(`https://app.trnr.com/api/delete/confirm/${confirmationCode}`, {
           method: 'GET'
      })
           .then(response => response.json())
