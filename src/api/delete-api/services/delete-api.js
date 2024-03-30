@@ -33,11 +33,10 @@ module.exports = {
                /*           Sending a Confirmation email to the user and TRNR team           */
                /* -------------------------------------------------------------------------- */
                await strapi.plugins['email'].services.email.send({
-                    to: "visheshdubey2016@gmail.com", // recipient email address
-                    from: 'info@trnr.com', // sender email address (must be authorized by your email provider)
+                    to: custom_user.email,
+                    from: 'info@trnr.com',
                     cc: "thecampusmonk@gmail.com",
                     subject: '🔴 TRNR - Delete account request received.',
-                    // text: 'Hello, this is a test email sent from a Strapi service.',
                     html: `<!DOCTYPE HTML>
                     <html lang="en">
                     
