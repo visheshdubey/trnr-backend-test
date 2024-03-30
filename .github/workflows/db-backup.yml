@@ -12,13 +12,13 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
-      - name: Set DATE variable
-        run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')" >> $GITHUB_ENV
+      # - name: Set DATE variable
+      #   run: echo "DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')" >> $GITHUB_ENV
 
-      - name: Use DATE variable
-        run: |
-          echo "The DATE is $DATE"
-          # Use $DATE to construct filenames or for other purposes
+      # - name: Use DATE variable
+      #   run: |
+      #     echo "The DATE is $DATE"
+      #     # Use $DATE to construct filenames or for other purposes
       - name: SSH and execute commands on the server
         uses: appleboy/ssh-action@master
         with:
@@ -31,7 +31,6 @@ jobs:
             # DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')
             FILENAME="${{ secrets.DB_NAME }}_$DATE.sql"
             pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "~/backups/$FILENAME"
-            echo "FILENAME=$FILENAME" >> $GITHUB_ENV # Pass the filename to the next step
 
       - name: Send email notification
         uses: dawidd6/action-send-mail@v2
@@ -40,7 +39,7 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: TRNR BACKUP - ${{ env.FILENAME }} Database Backup Completed
+          subject: $('%Y-%m-%d_%H-%M_%Z') - TRNR BACKUP - ${{ env.FILENAME }} Database Backup Completed
           body: |
             Backup of database ${{ secrets.DB_NAME }} was successfully created. 
             Filename: ${{ env.FILENAME }}
