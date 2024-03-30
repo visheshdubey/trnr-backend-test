@@ -49,4 +49,4 @@ jobs:
           subject: Database Backup Completed
           body: Backup of database ${{ secrets.DB_NAME }} was successfully created.
           to: visheshdubey2016@gmail.com
-          from: GitHub Actions <noreply@example.com>
+          from: GitHub Actions <info@trnr.com>
