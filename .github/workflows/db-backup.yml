@@ -23,9 +23,11 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             export PGPASSWORD='${{ secrets.DB_PASSWORD }}'
-            DATE=$(date +'%Y-%m-%d')
+            DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')
+            FILENAME="${{ secrets.DB_NAME }}_$DATE.sql"
             mkdir -p ~/backups
-            pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > ~/backups/${{ secrets.DB_NAME }}_$DATE.sql
+            pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "~/backups/$FILENAME"
+            echo "FILENAME=$FILENAME" >> $GITHUB_ENV # Pass the filename to the next step
       # - name: Dump database
       #   env:
       #     PGPASSWORD: ${{ secrets.DB_PASSWORD }}
@@ -46,7 +48,9 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: Database Backup Completed
-          body: Backup of database ${{ secrets.DB_NAME }} was successfully created.
+          subject: TRNR BACKUP - ${{ env.FILENAME }} Database Backup Completed
+          body: |
+            Backup of database ${{ secrets.DB_NAME }} was successfully created. 
+            Filename: ${{ env.FILENAME }}
           to: visheshdubey2016@gmail.com
-          from: GitHub Actions <info@trnr.com>
+          from: 💾 Weekly Database Backup -  <info@trnr.com>
