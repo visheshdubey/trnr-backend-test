@@ -12,6 +12,9 @@ jobs:
   backup:
     runs-on: ubuntu-latest
     steps:
+      - name: Generate timestamp
+        id: timestamp
+        run: echo "::set-output name=stamp::$(date +'%Y-%m-%d-%H-%M-%S-%Z')"
       - name: SSH and execute commands on the server
         uses: appleboy/ssh-action@master
         with:
@@ -23,7 +26,7 @@ jobs:
             cd ~/backups
             export PGPASSWORD='${{ secrets.DB_PASSWORD }}'
             DATE=$(date +'%Y-%m-%d-%H-%M-%S-%Z')
-            pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "${{ secrets.DB_NAME }}_$DATE.sql"
+            pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "${{ secrets.DB_NAME }}_${{ steps.timestamp.outputs.stamp }}.sql"
 
       - name: Send email notification
         uses: dawidd6/action-send-mail@v2
