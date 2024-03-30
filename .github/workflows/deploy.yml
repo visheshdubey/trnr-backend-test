@@ -1,4 +1,4 @@
-name: Deploy Strapi Backend
+name: Deploy with Docker Compose
 
 on:
   push:
@@ -6,7 +6,8 @@ on:
       - main
 
 jobs:
-   checkout_code:
+  # Job to checkout code from the repository
+  checkout_code:
     name: Checkout code
     runs-on: ubuntu-latest
     steps:
