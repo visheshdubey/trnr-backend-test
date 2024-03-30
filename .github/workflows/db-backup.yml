@@ -3,9 +3,9 @@ name: TRNR - Weekly database backup
 on:
   schedule:
     - cron: "0 0 * * 1"
-  push:
-    branches:
-      - main
+  # push:
+  #   branches:
+  #     - main
 
 jobs:
   weekly-db-backup:
