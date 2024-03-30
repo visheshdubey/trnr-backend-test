@@ -28,7 +28,7 @@ jobs:
           port: ${{ secrets.SERVER_PORT }}
           script: |
             export PGPASSWORD='${{ secrets.DB_PASSWORD }}'
-            # DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')
+            DATE=$(date +'%Y-%m-%d_%H-%M-%S_%Z')
             FILENAME="${{ secrets.DB_NAME }}_$DATE.sql"
             pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "~/backups/$FILENAME"
 
