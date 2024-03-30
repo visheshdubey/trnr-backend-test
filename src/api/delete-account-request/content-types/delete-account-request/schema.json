@@ -1,0 +1,51 @@
+{
+  "kind": "collectionType",
+  "collectionName": "delete_account_requests",
+  "info": {
+    "singularName": "delete-account-request",
+    "pluralName": "delete-account-requests",
+    "displayName": "Delete_account_request",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "reason": {
+      "type": "string"
+    },
+    "explanation": {
+      "type": "text"
+    },
+    "users_permissions_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "delete_account_request"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "NEW",
+        "CONFIRMED",
+        "IN_PROGRESS",
+        "REVIEW",
+        "DELETED"
+      ],
+      "default": "NEW",
+      "required": true
+    },
+    "custom_user": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::custom-user.custom-user",
+      "inversedBy": "delete_account_request"
+    },
+    "confirmation_code": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

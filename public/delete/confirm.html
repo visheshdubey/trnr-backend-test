@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <title>Account Deletion Status</title>
+     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.1.2/dist/tailwind.min.css" rel="stylesheet">
+</head>
+
+<body class="bg-white flex flex-col h-screen">
+     <nav class="w-full container mx-auto py-4">
+          <img src="https://trnr-app-media.s3.ap-southeast-2.amazonaws.com/Exclude_41ccaddd3d.jpg?updated_at=2023-01-07T05:56:14.068Z"
+               alt="" style="width: 100%; max-width: 120px;">
+     </nav>
+     <div class="flex flex-col items-center justify-center h-full">
+          <div id="statusMessage" class="border p-4 md:p-12 rounded">
+               <!-- Status message will be displayed here -->
+
+          </div>
+     </div>
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+     <script>
+          $(document).ready(function () {
+               // Function to extract query parameters
+               function getQueryParam(param) {
+                    var queryString = window.location.search;
+                    var urlParams = new URLSearchParams(queryString);
+                    return urlParams.get(param);
+               }
+
+               // Extract userId from URL
+               var confirmationCode = getQueryParam('confirmationCode');
+
+               // Make the GET request
+               fetch(`http://localhost:1337/api/delete/confirm/${confirmationCode}`, {
+                    method: 'GET'
+               })
+                    .then(response => response.json())
+                    .then(data => {
+                         if (data.status === 200) {
+                              $('#statusMessage').html(`
+                              <h2 class="text-3xl font-medium text-gray-800 text-start">Request confirmed.</h2>
+                              <p class="text-gray-600">Your account deletion request has been confirmed! Your data will be
+                                   deleted in next 3-4 working days.</p>`
+                              );
+                         } else {
+                              $('#statusMessage').html(`
+                              <h2 class="text-3xl font-medium text-red-700 text-start">Request failed.</h2>
+                              <p class="text-gray-600">Your account deletion request has been failed! Please raise a new request.</p>`);
+                         }
+                    })
+                    .catch(error => {
+                         console.error('Error:', error);
+                         $('#statusMessage').html('<h2 class="text-xl font-bold text-red-600">An error occurred while processing your request.</h2>');
+                    });
+          });
+     </script>
+</body>
+
+</html>

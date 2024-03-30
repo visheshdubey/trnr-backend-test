@@ -5,11 +5,24 @@
  */
 
 module.exports = {
-  // exampleAction: async (ctx, next) => {
-  //   try {
-  //     ctx.body = 'ok';
-  //   } catch (err) {
-  //     ctx.body = err;
-  //   }
-  // }
+  async createDeleteRequest(ctx, next) {
+    try {
+      const data = await strapi
+        .service("api::delete-api.delete-api")
+        .createDeleteRequest(ctx.state.user, ctx.request.body, ctx.request.querystring);
+      ctx.body = data;
+    } catch (err) {
+      ctx.badRequest("Delete API controller error", { moreDetails: err });
+    }
+  },
+  async confirmDeletion(ctx, next) {
+    try {
+      const data = await strapi
+        .service("api::delete-api.delete-api")
+        .confirmDeletion(ctx.params.confirmationCode);
+      ctx.body = data;
+    } catch (err) {
+      ctx.badRequest("Delete API controller error", { moreDetails: err.message });
+    }
+  },
 };
