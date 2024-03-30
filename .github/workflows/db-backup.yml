@@ -1,15 +1,14 @@
-name: Weekly Database Backup
+name: TRNR - Weekly database backup
 
-# on:
-#   schedule:
-#     - cron: "20 * * * *" # Runs at 00:00 every Sunday
 on:
+  schedule:
+    - cron: "*/5 * * * *"
   push:
     branches:
       - main
 
 jobs:
-  backup:
+  weekly-db-backup:
     runs-on: ubuntu-latest
     steps:
       - name: Generate timestamp
@@ -25,7 +24,6 @@ jobs:
           script: |
             cd ~/backups
             export PGPASSWORD='${{ secrets.DB_PASSWORD }}'
-            DATE=$(date +'%Y-%m-%d-%H-%M-%S-%Z')
             pg_dump -h ${{ secrets.DB_HOST }} -U ${{ secrets.DB_USER }} -d ${{ secrets.DB_NAME }} > "${{ secrets.DB_NAME }}_${{ steps.timestamp.outputs.stamp }}.sql"
 
       - name: Send email notification
@@ -35,9 +33,9 @@ jobs:
           server_port: 587
           username: ${{ secrets.EMAIL_USERNAME }}
           password: ${{ secrets.EMAIL_PASSWORD }}
-          subject: ${{ steps.timestamp.outputs.stamp }} - TRNR BACKUP - ${{ env.FILENAME }} Database Backup Completed
+          subject: TRNR_DB_BACKUP - ${{ secrets.DB_NAME }}_${{ steps.timestamp.outputs.stamp }}.sql backup created.
           body: |
             Backup of database ${{ secrets.DB_NAME }} was successfully created. 
-            Filename: ${{ env.FILENAME }}
+            Filename: ${{ secrets.DB_NAME }}_${{ steps.timestamp.outputs.stamp }}.sql.
           to: visheshdubey2016@gmail.com
-          from: 💾 Weekly Database Backup - <info@trnr.com>
+          from: DB Action - <info@trnr.com>
