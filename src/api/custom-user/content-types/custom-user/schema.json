@@ -4,7 +4,7 @@
   "info": {
     "singularName": "custom-user",
     "pluralName": "custom-users",
-    "displayName": "custom_user",
+    "displayName": "user_profile",
     "description": ""
   },
   "options": {
@@ -24,9 +24,6 @@
       "target": "api::saved-workout.saved-workout",
       "mappedBy": "user"
     },
-    "phone": {
-      "type": "string"
-    },
     "email": {
       "type": "email"
     },
@@ -45,11 +42,6 @@
       ],
       "default": "OTHER"
     },
-    "customer_id": {
-      "type": "biginteger",
-      "required": true,
-      "unique": true
-    },
     "tnc": {
       "type": "enumeration",
       "enum": [
@@ -57,11 +49,11 @@
         "TRUE"
       ]
     },
-    "delete_account_request": {
+    "user_id": {
       "type": "relation",
       "relation": "oneToOne",
-      "target": "api::delete-account-request.delete-account-request",
-      "mappedBy": "custom_user"
+      "target": "plugin::users-permissions.user",
+      "inversedBy": "user_profile"
     }
   }
 }

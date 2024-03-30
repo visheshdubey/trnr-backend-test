@@ -10,11 +10,12 @@ module.exports = {
             const entries = await strapi.entityService.findMany(
                 "api::exercise.exercise",
                 {
-                    fields: ["id", "name", "updatedAt"],
+                    fields: ["id", "name", "order", "updatedAt"],
                     populate: {
                         exercise_category: {
                             id: true,
-                            name: true
+                            name: true,
+                            order: true
                         }
                     },
                     filters: {
@@ -22,6 +23,11 @@ module.exports = {
                             id: {
                                 $eq: productId
                             }
+                        }
+                    },
+                    sort: {
+                        exercise_category: {
+                            order: 'asc'
                         }
                     }
                 }
@@ -33,7 +39,8 @@ module.exports = {
                 var c = entries.map((item) => {
                     return {
                         id: item.exercise_category.id,
-                        name: item.exercise_category.name
+                        name: item.exercise_category.name,
+                        order: item.exercise_category.order || 0,
                     }
 
                 })
@@ -53,6 +60,8 @@ module.exports = {
                         id: item.id,
                         exerciseCategory: item.name || "",
                         updatedDate: item.updatedAt || "",
+                        order: item.order || 0,
+
                     });
 
                     return acc;
@@ -78,6 +87,9 @@ module.exports = {
                         exercise_category: {
                             fields: ["id", "name", "updatedAt"],
                         },
+                        product: {
+                            fields: ["product_link"],
+                        },
                         video: {
                             fields: ["url"],
                         },
@@ -86,7 +98,16 @@ module.exports = {
                         },
                         image_small: {
                             fields: ["url"],
-                        }
+                        },
+                        blur_image_large: {
+                            fields: ["url"],
+                        },
+                        blur_image_small: {
+                            fields: ["url"],
+                        },
+                        video_thumbnail: {
+                            fields: ["url"],
+                        },
 
                     },
 
@@ -107,13 +128,16 @@ module.exports = {
             const entries = await strapi.entityService.findMany(
                 "api::exercise.exercise",
                 {
-                    fields: ["id", "name"],
+                    fields: ["id", "name", "order"],
                     populate: {
                         exercise_category: {
                             id: true,
                             name: true
                         },
                         thumbnail: {
+                            url: true
+                        },
+                        blur_thumbnail: {
                             url: true
                         },
                         product: {
@@ -143,7 +167,9 @@ module.exports = {
                                 }
                             }
                         ]
-                    }
+                    },
+                    sort: { order: 'asc' }
+                    // sort: { order: 'desc' },  // This will sort the list and generates a ordered response
                 }
             );
 
@@ -157,7 +183,10 @@ module.exports = {
                         id: item.id,
                         name: item.name || "",
                         image: item.thumbnail?.url || "",
+
+                        blur_image: item.blur_thumbnail?.url || "",
                         category: item.product.category?.name || "",
+                        order: item.order || 0,
                     });
 
                     return acc;

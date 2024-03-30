@@ -14,14 +14,16 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
-      "regex": "^[A-Z 0-9]+$"
+      "required": true
     },
     "exercises": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::exercise.exercise",
       "mappedBy": "exercise_category"
+    },
+    "order": {
+      "type": "integer"
     }
   }
 }

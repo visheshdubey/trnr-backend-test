@@ -1,30 +1,67 @@
-// const path = require('path');
-
-// module.exports = ({ env }) => ({
-//   connection: {
-//     client: 'sqlite',
-//     connection: {
-//       filename: path.join(__dirname, '..', env('DATABASE_FILENAME', '.tmp/data.db')),
-//     },
-//     useNullAsDefault: true,
-//   },
-// });
-// const parse = require('pg-connection-string').parse;
-// const config = parse(process.env.DATABASE_URL);
+/* -------------------------------------------------------------------------- */
+/*                               Local Configs                               */
+/* -------------------------------------------------------------------------- */
 module.exports = ({ env }) => ({
   connection: {
     client: 'postgres',
     connection: {
-      host: process.env.DATABASE_HOST,//config.host,
-      port: process.env.DATABASE_PORT,//config.port,
-      database: process.env.DATABASE_NAME,//config.database,
-      user: process.env.DATABASE_USERNAME,//config.user,
-      password: process.env.DATABASE_PASSWORD,//config.password,
-      // ssl: {
-      //   rejectUnauthorized: false
-      // },
+      host: process.env.DATABASE_HOST,
+      port: process.env.DATABASE_PORT,
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USERNAME,
+      password: process.env.DATABASE_PASSWORD,
       ssl: false
     },
     debug: true,
   },
 });
+/* -------------------------------------------------------------------------- */
+/*                             Production Configs                             */
+/* -------------------------------------------------------------------------- */
+const path = require('path');
+
+module.exports = ({ env }) => (
+  env('DEVELOPMENT', false) ?
+
+    {
+      connection: {
+        client: 'sqlite',
+        connection: {
+          filename: path.join(__dirname, '..', env('DATABASE_FILENAME', '.tmp/data.db')),
+        },
+        useNullAsDefault: true,
+      },
+    } : {
+      connection: {
+        client: 'postgres',
+        connection: {
+          host: env('DATABASE_HOST'),
+          port: env.int('DATABASE_PORT'),
+          database: env('DATABASE_NAME'),
+          user: env('DATABASE_USERNAME'),
+          password: env('DATABASE_PASSWORD'),
+          ssl: {
+            rejectUnauthorized: env.bool('DATABASE_SSL_SELF', false),
+          },
+        },
+        debug: false,
+      },
+    });
+
+
+// module.exports = ({ env }) => ({
+//   connection: {
+//     client: 'postgres',
+//     connection: {
+//       host: env('DATABASE_HOST'),
+//       port: env.int('DATABASE_PORT'),
+//       database: env('DATABASE_NAME'),
+//       user: env('DATABASE_USERNAME'),
+//       password: env('DATABASE_PASSWORD'),
+//       ssl: {
+//         rejectUnauthorized: env.bool('DATABASE_SSL_SELF', false),
+//       },
+//     },
+//     debug: false,
+//   },
+// });

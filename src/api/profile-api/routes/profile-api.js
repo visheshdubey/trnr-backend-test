@@ -2,17 +2,17 @@ module.exports = {
   routes: [
     {
       method: 'GET',
-      path: '/workouts/',
-      handler: 'workouts.Workouts',
+      path: '/profile/',
+      handler: 'profile-api.getProfile',
       config: {
         policies: [],
         middlewares: [],
-      },
+      }
     },
     {
       method: 'POST',
-      path: '/workouts/',
-      handler: 'workouts.updateWorkouts',
+      path: '/profile/:userID',
+      handler: 'profile-api.createProfile',
       config: {
         policies: [],
         middlewares: [],
@@ -20,13 +20,12 @@ module.exports = {
     },
     {
       method: 'PUT',
-      path: '/workouts/',
-      handler: 'workouts.updateWorkouts',
+      path: '/profile/',
+      handler: 'profile-api.updateProfile',
       config: {
         policies: [],
         middlewares: [],
       },
-    },
-
+    }
   ],
 };

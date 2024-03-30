@@ -5,3 +5,9 @@ module.exports = ({ env }) => ({
     keys: env.array('APP_KEYS'),
   },
 });
+/* -------------------------------------------------------------------------- */
+/*          For production, you can use the following configuration:          */
+/* -------------------------------------------------------------------------- */
+module.exports = ({ env }) => ({
+  url: `https://app.trnr.com/`,
+})

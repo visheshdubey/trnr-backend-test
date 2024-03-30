@@ -5,9 +5,10 @@ module.exports = {
             const entries = await strapi.entityService.findMany(
                 "api::product.product",
                 {
-                    fields: ["id", "name", "createdAt"],
+                    fields: ["id", "name", "order"],
                     populate: {
                         image: true,
+                        blur_image: true,
                         category: {
                             name: true,
                             id: true
@@ -19,7 +20,8 @@ module.exports = {
                                 $eq: categoryId
                             }
                         }
-                    }
+                    },
+                    sort: { order: 'asc' }
                 }
 
             );
@@ -34,7 +36,9 @@ module.exports = {
                         name: item.name || "",
                         category: item.category?.id || "",
                         category_name: item.category?.name || "",
-                        image: item.image?.url || ""
+                        image: item.image?.url || "",
+                        blur_image: item.blur_image?.url || "",
+                        order: item.order || 0,
                     });
                     return acc;
                 }, []);
