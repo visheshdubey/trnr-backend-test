@@ -2,7 +2,7 @@ name: TRNR - Weekly database backup
 
 on:
   schedule:
-    - cron: "*/5 * * * *"
+    - cron: "0 0 * * 1"
   push:
     branches:
       - main
@@ -38,4 +38,4 @@ jobs:
             Backup of database ${{ secrets.DB_NAME }} was successfully created. 
             Filename: ${{ secrets.DB_NAME }}_${{ steps.timestamp.outputs.stamp }}.sql.
           to: visheshdubey2016@gmail.com
-          from: DB Action - <info@trnr.com>
+          from: TRNR DB_Bot <info@trnr.com>
