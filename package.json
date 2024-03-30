@@ -29,10 +29,6 @@
   "strapi": {
     "uuid": "d5d83505-e163-4733-b2fd-132ad2b087bc"
   },
-  "engines": {
-    "node": ">=14.19.1 <=18.x.x",
-    "npm": ">=6.0.0"
-  },
   "license": "MIT",
   "devDependencies": {
     "@babel/runtime": "^7.24.1",
