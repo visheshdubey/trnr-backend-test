@@ -6,25 +6,27 @@ on:
       - main
 
 jobs:
-  deploy:
+   checkout_code:
+    name: Checkout code
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout repository
+      - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up SSH connection
-        uses: webfactory/ssh-agent@v0.5.3
-        with:
-          ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
-
-      - name: Deploy Strapi Backend
+  # Job to execute commands on the server via SSH
+  ssh_execute:
+    name: SSH and execute commands on the server
+    runs-on: ubuntu-latest
+    needs: checkout_code
+    steps:
+      - name: SSH and execute commands on the server
         uses: appleboy/ssh-action@master
         with:
           host: ${{ secrets.SERVER_HOST }}
           username: ${{ secrets.SERVER_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          port: ${{ secrets.SERVER_PORT }} # Optional if your SSH server uses the default port 22
+          port: ${{ secrets.SERVER_PORT }}
+          # Run commands on the server
           script: |
             cd ~/trnr-backend-test
             git pull origin main
