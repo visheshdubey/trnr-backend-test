@@ -59,7 +59,7 @@
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::delete-account-request.delete-account-request",
-      "mappedBy": "custom_user"
+      "mappedBy": "user_profile"
     }
   }
 }

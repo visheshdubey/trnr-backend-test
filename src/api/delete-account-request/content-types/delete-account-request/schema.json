@@ -18,7 +18,7 @@
     "explanation": {
       "type": "text"
     },
-    "users_permissions_user": {
+    "user": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "plugin::users-permissions.user",
@@ -28,24 +28,17 @@
       "type": "enumeration",
       "enum": [
         "NEW",
-        "CONFIRMED",
         "IN_PROGRESS",
-        "REVIEW",
         "DELETED"
       ],
       "default": "NEW",
       "required": true
     },
-    "custom_user": {
+    "user_profile": {
       "type": "relation",
       "relation": "oneToOne",
       "target": "api::custom-user.custom-user",
       "inversedBy": "delete_account_request"
-    },
-    "confirmation_code": {
-      "type": "string",
-      "required": true,
-      "unique": true
     }
   }
 }

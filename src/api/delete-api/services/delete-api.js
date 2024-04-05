@@ -15,15 +15,13 @@ module.exports = {
                /* -------------------------------------------------------------------------- */
                /*                        Creating delete request entry                       */
                /* -------------------------------------------------------------------------- */
-               const confirmationCode = crypto.randomBytes(20).toString('hex');
                const c = await strapi.db.query('api::delete-account-request.delete-account-request').create({
                     data: {
                          reason: body?.reason || "No reason provided",
                          explanation: body?.explanation || "",
-                         users_permissions_user: userId.id,
+                         user: userId.id,
                          status: "NEW",
-                         custom_user: custom_user.id,
-                         confirmation_code: confirmationCode,
+                         user_profile: custom_user.id,
                     },
                });
                if (!c) {
@@ -75,10 +73,16 @@ module.exports = {
                                    alt="" style="width: 100%; max-width: 120px;">
                     
                               <h1>Delete Account Request Received</h1>
-                              <p>Follow this link to confirm your account deletion request for <strong>TRNR app</strong>. All your data will
-                                   be deleted in the next 3-4 working days. If you didn't request account deletion, you can safely ignore
-                                   this email.</p>
-                              <a href="http://localhost:1337/delete/confirm.html?confirmationCode=${confirmationCode}" class="button" target="_blank">Confirm Deletion</a>
+                              <p>We're sorry to see you go! We wanted to confirm that we have received your request to delete your TRNR
+                                   account and all of your personal data. Your account deletion will be completed within the next 3-4
+                                   business days. <br /><br />All of your data associated with your TRNR account will be permanently deleted
+                                   during this
+                                   time. <br /><br />If you did not request this account deletion, or if you have changed your mind, please
+                                   reach
+                                   out to
+                                   us immediately at <a href="mailto:hello@trnr.com">hello@trnr.com</a>. We appreciate you being a part of
+                                   the TRNR community, and we wish you
+                                   all the best in your fitness journey. <br /><br />Sincerely, <br /><strong>The TRNR Team</strong></p>
                          </div>
                     </body>
                     
@@ -92,45 +96,4 @@ module.exports = {
                throw err;
           }
      },
-     confirmDeletion: async (confirmationCode) => {
-          try {
-               /* -------------------------------------------------------------------------- */
-               /*                           Fetch Deletion request                           */
-               /* -------------------------------------------------------------------------- */
-               const deletion_request = await strapi.db.query('api::delete-account-request.delete-account-request').findOne({
-                    where: { confirmation_code: confirmationCode, status: "NEW" },
-                    populate: ['users_permissions_user'],
-               });
-               if (!deletion_request) {
-                    throw new Error("Invalid confirmation code");
-               }
-               console.log("🔴", deletion_request);
-               /* -------------------------------------------------------------------------- */
-               /*                              Block user access                             */
-               /* -------------------------------------------------------------------------- */
-               const updated_user = await strapi.db.query('plugin::users-permissions.user').update({
-                    where: { id: deletion_request.users_permissions_user.id },
-                    data: {
-                         blocked: true
-                    },
-               });
-               if (!updated_user) {
-                    throw new Error("User not found");
-               }
-               console.log("🔴", updated_user);
-               /* -------------------------------------------------------------------------- */
-               /*                       Updating delete request status                       */
-               /* -------------------------------------------------------------------------- */
-               await strapi.db.query('api::delete-account-request.delete-account-request').update({
-                    where: { id: deletion_request.id },
-                    data: {
-                         status: "CONFIRMED",
-                    },
-               });
-               return { message: "delete request confirmed", status: 200 }
-          } catch (err) {
-               console.log(err);
-               throw err;
-          }
-     }
 };

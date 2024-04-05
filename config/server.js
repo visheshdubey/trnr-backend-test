@@ -8,8 +8,8 @@ module.exports = ({ env }) => ({
 /* -------------------------------------------------------------------------- */
 /*          For production, you can use the following configuration:          */
 /* -------------------------------------------------------------------------- */
-module.exports = ({ env }) => ({
-  url: `https://app.trnr.com/`,
-})
+// module.exports = ({ env }) => ({
+//   url: env('DEVELOPMENT') === 'false' ? `https://app.trnr.com/` : "http://localhost:1337", // 
+// })
 
 

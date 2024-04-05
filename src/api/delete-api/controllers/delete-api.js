@@ -14,15 +14,5 @@ module.exports = {
     } catch (err) {
       ctx.badRequest("Delete API controller error", { moreDetails: err });
     }
-  },
-  async confirmDeletion(ctx, next) {
-    try {
-      const data = await strapi
-        .service("api::delete-api.delete-api")
-        .confirmDeletion(ctx.params.confirmationCode);
-      ctx.body = data;
-    } catch (err) {
-      ctx.badRequest("Delete API controller error", { moreDetails: err.message });
-    }
-  },
+  }
 };

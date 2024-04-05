@@ -616,11 +616,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    uid: Attribute.UID<'plugin::users-permissions.user', 'username'>;
-    exercises: Attribute.Relation<
+    abcd: Attribute.String;
+    user_profile: Attribute.Relation<
       'plugin::users-permissions.user',
-      'oneToMany',
-      'api::exercise.exercise'
+      'oneToOne',
+      'api::custom-user.custom-user'
     >;
     delete_account_request: Attribute.Relation<
       'plugin::users-permissions.user',
@@ -708,6 +708,8 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'oneToMany',
       'api::product.product'
     >;
+    order: Attribute.Integer;
+    blur_image: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -731,7 +733,7 @@ export interface ApiCustomUserCustomUser extends Schema.CollectionType {
   info: {
     singularName: 'custom-user';
     pluralName: 'custom-users';
-    displayName: 'custom_user';
+    displayName: 'user_profile';
     description: '';
   };
   options: {
@@ -745,14 +747,17 @@ export interface ApiCustomUserCustomUser extends Schema.CollectionType {
       'oneToOne',
       'api::saved-workout.saved-workout'
     >;
-    phone: Attribute.String;
     email: Attribute.Email;
     DOB: Attribute.Date;
     country: Attribute.String;
     gender: Attribute.Enumeration<['MALE', 'FEMALE', 'OTHER']> &
       Attribute.DefaultTo<'OTHER'>;
-    customer_id: Attribute.BigInteger & Attribute.Required & Attribute.Unique;
     tnc: Attribute.Enumeration<['FALSE', 'TRUE']>;
+    user_id: Attribute.Relation<
+      'api::custom-user.custom-user',
+      'oneToOne',
+      'plugin::users-permissions.user'
+    >;
     delete_account_request: Attribute.Relation<
       'api::custom-user.custom-user',
       'oneToOne',
@@ -791,22 +796,19 @@ export interface ApiDeleteAccountRequestDeleteAccountRequest
   attributes: {
     reason: Attribute.String;
     explanation: Attribute.Text;
-    users_permissions_user: Attribute.Relation<
+    user: Attribute.Relation<
       'api::delete-account-request.delete-account-request',
       'oneToOne',
       'plugin::users-permissions.user'
     >;
-    status: Attribute.Enumeration<
-      ['NEW', 'CONFIRMED', 'IN_PROGRESS', 'REVIEW', 'DELETED']
-    > &
+    status: Attribute.Enumeration<['NEW', 'IN_PROGRESS', 'DELETED']> &
       Attribute.Required &
       Attribute.DefaultTo<'NEW'>;
-    custom_user: Attribute.Relation<
+    user_profile: Attribute.Relation<
       'api::delete-account-request.delete-account-request',
       'oneToOne',
       'api::custom-user.custom-user'
     >;
-    confirmation_code: Attribute.String & Attribute.Required & Attribute.Unique;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -837,12 +839,8 @@ export interface ApiExerciseExercise extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    name: Attribute.String &
-      Attribute.Required &
-      Attribute.SetMinMaxLength<{
-        maxLength: 20;
-      }>;
-    thumbnail: Attribute.Media & Attribute.Required;
+    name: Attribute.String & Attribute.Required;
+    thumbnail: Attribute.Media;
     image_large: Attribute.Media;
     image_small: Attribute.Media;
     video: Attribute.Media;
@@ -857,6 +855,11 @@ export interface ApiExerciseExercise extends Schema.CollectionType {
       'api::exercise-category.exercise-category'
     >;
     description: Attribute.Text;
+    order: Attribute.Integer;
+    blur_image_large: Attribute.Media;
+    video_thumbnail: Attribute.Media;
+    blur_image_small: Attribute.Media;
+    blur_thumbnail: Attribute.Media;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -894,6 +897,7 @@ export interface ApiExerciseCategoryExerciseCategory
       'oneToMany',
       'api::exercise.exercise'
     >;
+    order: Attribute.Integer;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -905,6 +909,36 @@ export interface ApiExerciseCategoryExerciseCategory
       Attribute.Private;
     updatedBy: Attribute.Relation<
       'api::exercise-category.exercise-category',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+  };
+}
+
+export interface ApiPrivacyPolicyPrivacyPolicy extends Schema.SingleType {
+  collectionName: 'privacy_policies';
+  info: {
+    singularName: 'privacy-policy';
+    pluralName: 'privacy-policies';
+    displayName: 'privacy-policy';
+  };
+  options: {
+    draftAndPublish: true;
+  };
+  attributes: {
+    content: Attribute.RichText;
+    createdAt: Attribute.DateTime;
+    updatedAt: Attribute.DateTime;
+    publishedAt: Attribute.DateTime;
+    createdBy: Attribute.Relation<
+      'api::privacy-policy.privacy-policy',
+      'oneToOne',
+      'admin::user'
+    > &
+      Attribute.Private;
+    updatedBy: Attribute.Relation<
+      'api::privacy-policy.privacy-policy',
       'oneToOne',
       'admin::user'
     > &
@@ -925,7 +959,7 @@ export interface ApiProductProduct extends Schema.CollectionType {
   };
   attributes: {
     name: Attribute.String & Attribute.Required;
-    image: Attribute.Media & Attribute.Required;
+    image: Attribute.Media;
     category: Attribute.Relation<
       'api::product.product',
       'manyToOne',
@@ -937,6 +971,9 @@ export interface ApiProductProduct extends Schema.CollectionType {
       'api::exercise.exercise'
     >;
     description: Attribute.Text;
+    order: Attribute.Integer;
+    blur_image: Attribute.Media;
+    product_link: Attribute.String;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1016,6 +1053,7 @@ declare module '@strapi/types' {
       'api::delete-account-request.delete-account-request': ApiDeleteAccountRequestDeleteAccountRequest;
       'api::exercise.exercise': ApiExerciseExercise;
       'api::exercise-category.exercise-category': ApiExerciseCategoryExerciseCategory;
+      'api::privacy-policy.privacy-policy': ApiPrivacyPolicyPrivacyPolicy;
       'api::product.product': ApiProductProduct;
       'api::saved-workout.saved-workout': ApiSavedWorkoutSavedWorkout;
     }
