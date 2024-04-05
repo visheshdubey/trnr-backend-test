@@ -20,9 +20,8 @@ $('#loginBtn').click(function async() {
      const email = $('#username').val();
      const password = $('#password').val();
      // Show spinner
-     $('#spinner').removeClass('hidden');
+     $('#spinner_login').removeClass('hidden');
      $('#loginBtn').prop('disabled', true);
-
      fetch('https://app.trnr.com/api/auth/local/', {
           method: 'POST',
           headers: {
@@ -35,7 +34,7 @@ $('#loginBtn').click(function async() {
                localStorage.setItem('jwtToken', data.jwt);
                if (data.jwt) {
                     // Hide spinner and enable login button
-                    $('#spinner').addClass('hidden');
+                    $('#spinner_login').addClass('hidden');
                     $('#loginBtn').prop('disabled', false);
 
                     // Update snackbar text and show it
@@ -46,7 +45,7 @@ $('#loginBtn').click(function async() {
                     $('#deleteForm').show();
                }
                else {
-                    $('#spinner').addClass('hidden');
+                    $('#spinner_login').addClass('hidden');
                     $('#loginBtn').prop('disabled', false);
 
                     // Update snackbar text and show it
@@ -55,7 +54,7 @@ $('#loginBtn').click(function async() {
 
           })
           .catch(error => {
-               $('#spinner').addClass('hidden');
+               $('#spinner_login').addClass('hidden');
                $('#loginBtn').prop('disabled', false);
 
                // Update snackbar text and show it
@@ -69,18 +68,15 @@ $('#deleteBtn').click(function () {
      // Get the value of the checked radio button
      var selectedReason = $('input[name="deleteReason"]:checked').val();
      console.log("Selected reason for leaving: ", selectedReason);
-
+     // Show spinner
+     $('#spinner').removeClass('hidden');
+     $('#deleteBtn').prop('disabled', true);
      // Check if 'Other' is selected and get the textarea value
      if (selectedReason === "Other") {
           var otherReason = $("#otherReasonInput").val();
           console.log("Other reason specified: ", otherReason);
      }
-
-     // Show spinner
-     $('#spinner').removeClass('hidden');
-     $(this).prop('disabled', true);
-     var jwtToken = localStorage.getItem('jwtToken');
-     fetch('https://app.trnr.com/api/delete', {
+     fetch('https://app.trnr.com/api/delete/', {
           method: 'POST',
           headers: {
                'Content-Type': 'application/json',
@@ -94,10 +90,10 @@ $('#deleteBtn').click(function () {
                if (data.message === 'success') {
                     // Hide spinner
                     $('#spinner').addClass('hidden');
-                    $('#loginBtn').prop('disabled', false);
+                    $('#deleteBtn').prop('disabled', false);
 
                     // Update snackbar text and show it
-                    $('#snackbar').text('Login successful!').removeClass('hidden').addClass('block').delay(3000).fadeOut(400);
+                    $('#snackbar').text('Form Submitted').fadeIn(100).removeClass('hidden').addClass('block').delay(3000).fadeOut(400).addClass('hidden');
 
                     // Hide login form and show delete form
                     $('#loginForm').hide();
@@ -105,20 +101,20 @@ $('#deleteBtn').click(function () {
                }
                else {
                     $('#spinner').addClass('hidden');
-                    $('#loginBtn').prop('disabled', false);
+                    $('#deleteBtn').prop('disabled', false);
 
                     // Update snackbar text and show it
-                    $('#snackbar').text('Login failed. Please try again.').removeClass('hidden').removeClass('bg-gray-800').addClass('block').addClass('bg-red-800').delay(3000).fadeOut(400).removeClass('bg-red-800').addClass('bg-gray-800');
+                    $('#snackbar_error').text('Something went wrong. Please try again.').fadeIn(100).removeClass('hidden').addClass('block').delay(3000).fadeOut(400).addClass('hidden');
                }
 
           })
           .catch(error => {
                console.error('Error:', error); // Hide spinner
                $('#spinner').addClass('hidden');
-               $('#loginBtn').prop('disabled', false);
+               $('#deleteBtn').prop('disabled', false);
 
                // Update snackbar text and show it
-               $('#snackbar').text('Login failed. Please try again.').removeClass('hidden').removeClass('bg-gray-800').addClass('block').addClass('bg-red-800').delay(3000).fadeOut(400);
+               $('#snackbar_error').text('Something went wrong. Please try again.').fadeIn(100).removeClass('hidden').addClass('block').delay(3000).fadeOut(400).addClass('hidden');
 
           });
 });

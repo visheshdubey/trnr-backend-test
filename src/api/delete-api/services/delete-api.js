@@ -1,8 +1,16 @@
 'use strict';
-const crypto = require('crypto');
 module.exports = {
      createDeleteRequest: async (userId, body, method) => {
           try {
+               /* -------------------------------------------------------------------------- */
+               /*                        Creating delete request entry                       */
+               /* -------------------------------------------------------------------------- */
+               const reqAlreadyExist = await strapi.db.query('api::delete-account-request.delete-account-request').findOne({
+                    where: { user: userId.id },
+               });
+               if (reqAlreadyExist) {
+                    throw new Error("Request already exists");
+               }
                /* -------------------------------------------------------------------------- */
                /*                        Fetching Custom profile data                        */
                /* -------------------------------------------------------------------------- */
@@ -28,13 +36,26 @@ module.exports = {
                     throw new Error("Error creating delete request");
                }
                /* -------------------------------------------------------------------------- */
+               /*                              Block user access                             */
+               /* -------------------------------------------------------------------------- */
+               const updated_user = await strapi.db.query('plugin::users-permissions.user').update({
+                    where: { id: userId.id, },
+                    data: {
+                         blocked: false
+                    },
+               });
+               console.log("Updated user: ", updated_user);
+               if (!updated_user) {
+                    throw new Error("User not found");
+               }
+               /* -------------------------------------------------------------------------- */
                /*           Sending a Confirmation email to the user and TRNR team           */
                /* -------------------------------------------------------------------------- */
                await strapi.plugins['email'].services.email.send({
                     to: custom_user.email,
-                    from: 'info@trnr.com',
+                    from: 'TRNR Admin <info@trnr.com>',
                     cc: "thecampusmonk@gmail.com",
-                    subject: '🔴 TRNR - Delete account request received.',
+                    subject: 'Delete account request received.',
                     html: `<!DOCTYPE HTML>
                     <html lang="en">
                     
